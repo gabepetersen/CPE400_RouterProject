@@ -1,0 +1,12 @@
+body {
+  display: block;
+  border: 1px solid black;
+  /* will likely want to adjust these, or make them dynamic */
+  width: 1200px;
+  height: 600px;
+  margin: auto;
+}
+
+.vfill {
+  height: 100%;
+}
