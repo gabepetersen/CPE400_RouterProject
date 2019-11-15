@@ -1,80 +1,62 @@
-<<<<<<< HEAD
-<!doctype html>
-<html lang="en">
-	
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>CPE 400 Project</title> 
-	
-	<meta name="copyright" content="" />
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
-	<meta name="robots" content="index, follow" />
-	<meta name="DC.title" content="" />
-	
-	<link rel="stylesheet" type="text/css" href="css/fluid_index.css" />
-	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-</head>
-
-<body>
-	<div id = "total_container">
-		<div id="top_header">
-		Top Header
-		</div>
-	
-		<div id = "sim_container">
-			<div id = "info_div">
-			Info Div
-			</div>
-			<div id = "sim_div">
-				<canvas id="sim_canvas"></canvas>
-				<script src="js/drawing.js"></script>										
-			</div>
-		</div>
-	</div>
-
-</body>
-=======
 <!DOCTYPE html>
 <html lang="en" ng-app="cpe400App">
-<head>
-  <meta charset="UTF-8">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
 
-  <link rel="stylesheet" type="text/css" href="css/controlpanel.css">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  <link rel="stylesheet" type="text/css" href="css/sandbox.css">
+    <meta name="copyright" content="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="robots" content="index, follow" />
+    <meta name="DC.title" content="" />
 
-  <title>There and Back Again</title>
-</head>
+    <link rel="stylesheet" type="text/css" href="css/fluid_index.css" />
+    <link rel="stylesheet" type="text/css" href="css/controlpanel.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/sandbox.css">
 
-<body>
+    <title>There and Back Again</title>
+  </head>
 
-<!-- required element for angular, where controller code will insert into the page -->
-<div class="vfill" ng-view></div>
+  <body>
 
-<canvas class="canvas"></canvas>
+    <div id="total_container">
+      <div id="top_header">
+        Top Header
+      </div>
+
+      <div id="sim_container">
+        <div id="info_div">
+          <!-- required element for angular, where controller code will insert into the page -->
+          <div class="vfill" ng-view></div>
+        </div>
+        <div id="sim_div">
+          <canvas id="sim_canvas"></canvas>
+          <script src="js/drawing.js"></script>
+        </div>
+      </div>
+    </div>
 
 
-<!-- external library files MUST go first -->
-<script src="js/lib/angular.js"></script>
-<script src="js/lib/angular-route.js"></script>
+    <!-- external library files MUST go first -->
+    <script src="js/lib/angular.js"></script>
+    <script src="js/lib/angular-route.js"></script>
 
-<!-- our angular code -->
-<script src="js/bin/app.js"></script>
-<script src="js/bin/router.js"></script>
+    <!-- our angular code -->
+    <script src="js/bin/app.js"></script>
+    <script src="js/bin/router.js"></script>
 
-<!-- our object classes -->
-<script src="js/classes/Packet.js"></script>
-<script src="js/classes/Router.js"></script>
-<script src="js/classes/Topology.js"></script>
+    <!-- our object classes -->
+    <script src="js/classes/Packet.js"></script>
+    <script src="js/classes/Router.js"></script>
+    <script src="js/classes/Topology.js"></script>
 
-<!-- our angular controllers (none written yet) -->
+    <!-- our angular controllers (none written yet) -->
 
-<!-- our other javascript code -->
-<script src="js/controlpanel.js"></script>
-<script src="js/sandbox.js"></script>
-</body>
+    <!-- our other javascript code -->
+    <script src="js/controlpanel.js"></script>
+    <script src="js/sandbox.js"></script>
+  </body>
 
->>>>>>> 0cb7492e593451b255f33b13e05c641ad3f615aa
 </html>

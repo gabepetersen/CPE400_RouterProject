@@ -1,16 +1,29 @@
 @charset "utf-8";
 /* CSS Document */
 
-html, body {
+html {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	height: 600px;
 	padding: 0;
 	margin: 0;
 }
 #total_container {
-	width: 100%;
+	width: 80%;
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 100px 1fr;
 	grid-gap: 10px;
+
+
+	border: 1px solid black;
+	height: 100%;
+	margin: auto;
+
+
 }
 
 /* DO SOMETHING WITH THIS LATER */
@@ -23,13 +36,14 @@ html, body {
 #sim_container {
 	display: grid;
 	grid-template-columns: 40% 60%;
-	grid-gap: 10px;
+	/*grid-gap: 10px;*/
 	grid-template-areas: 'info sim';
 	justify-content: center;
 }
 
 /* INSERT STYLING FOR INFO_DIV HERE - UPDATE FUNCTION */
 #info_div {
+	height: 100%;
 	grid-area: info;
 	background-color: #666;
 }
@@ -42,7 +56,6 @@ html, body {
 	grid-area: sim;
 	width: 100%;
 	text-align: center;
-	padding: 20px;
 }
 #sim_div canvas {
 	display: inline;	
