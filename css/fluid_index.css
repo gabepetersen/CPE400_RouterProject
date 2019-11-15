@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* CSS Document */
+
+html, body {
+	padding: 0;
+	margin: 0;
+}
+#total_container {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 100px 1fr;
+	grid-gap: 10px;
+}
+
+/* DO SOMETHING WITH THIS LATER */
+#top_header {
+	width: 100%;
+	background-color: #0E0E4C;
+	box-sizing: border-box;
+}
+
+#sim_container {
+	display: grid;
+	grid-template-columns: 40% 60%;
+	grid-gap: 10px;
+	grid-template-areas: 'info sim';
+	justify-content: center;
+}
+
+/* INSERT STYLING FOR INFO_DIV HERE - UPDATE FUNCTION */
+#info_div {
+	grid-area: info;
+	background-color: #666;
+}
+
+/*
+ * STYLING FOR THE ROUTER SIMULATION DIV
+ * - REFER TO drawing.js FOR INNER CANVAS STUFF
+ */
+#sim_div {
+	grid-area: sim;
+	width: 100%;
+	text-align: center;
+	padding: 20px;
+}
+#sim_div canvas {
+	display: inline;	
+}
