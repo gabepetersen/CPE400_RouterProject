@@ -2,7 +2,7 @@
 A repo for the CPE 400 end of semester project
 
 # The Team
-Gabe Peterson
+Gabe Petersen
 
 Max Wiegant
 
