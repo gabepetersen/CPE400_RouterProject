@@ -7,6 +7,10 @@ class Topology {
     this.graph = [];
   }
 
+  hasRouters() {
+    return this.graph.length > 0;
+  }
+
   addRouter(router) {
     let numExistingRouters = this.graph.length;
     let newRouterRow = [router];
@@ -25,7 +29,7 @@ class Topology {
   }
 
   removeRouter() {
-    // TODO - do we want to support removing routers? Not tough to implement
+    // TODO - implement
   }
 
   addEdge(fromRouterId, toRouterId) {
@@ -36,6 +40,7 @@ class Topology {
     this.__setEdge(fromRouterId, toRouterId, 0);
   }
 
+  /* private function: sets a given edge to either 0 or 1 */
   __setEdge(fromRouterId, toRouterId, value) {
     const ACCEPTED_VALS = [0,1];
     let fromRouterRowNum = 0;
@@ -60,7 +65,22 @@ class Topology {
     this.graph[toRouterRowNum][1 + fromRouterRowNum] = value;
   }
 
+  getAllRouters() {
+    // TODO - we could optimize this function to return only the data that is needed for the canvas, rather than each complete router object
+
+    let routers = [];
+
+    // get the router from each row
+    this.graph.forEach(function(row) {
+      routers.push(row[0]);
+    });
+
+    return routers;
+  }
+
   getAllEdges() {
     // TODO - return all edges from above the diagonal (no reason to draw all edges below diagonal; would be mirrored)
+
+    return [];  // TEMP - need to implement this function
   }
 }

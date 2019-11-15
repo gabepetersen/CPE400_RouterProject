@@ -12,13 +12,6 @@ class Router {
     this.y = y;
   }
 
-  move(newX, newY) {
-    this.x = newX;
-    this.y = newY;
-
-    // TODO - trigger a "re-draw" of the canvas
-  }
-
   addRoute(routerId, nextHop, ttl) {
     // TODO - check if routing table is full
 

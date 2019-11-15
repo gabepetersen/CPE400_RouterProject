@@ -1,28 +1,17 @@
-cpe400App.config(['$routeProvider',
+/*
+  Setup routing for Angular. Considering the barebones-usage of Angular in our project, the main
+  point of this router is just to ensure that the templateUrl and controller get loaded.
+ */
+GLOB_cpeAngularApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
-        // TODO - add routing between control panels
-
-        // .when('/encounters', {
-        //   templateUrl: 'partials/encounters.html',
-        //   controller: 'EncountersController'
-        // })
-        // .when('/manage-units', {
-        //   templateUrl: 'partials/manage-units.html',
-        //   controller: 'ManageUnitsController'
-        // })
-        // .when('/manage-encounters', {
-        //   templateUrl: 'partials/manage-encounters.html',
-        //   controller: 'ManageEncountersController'
-        // })
-        // .when('/', {
-        //   // Go to the manage-units page by default
-        //   templateUrl: 'partials/manage-units.html',
-        //   controller: 'ManageUnitsController'
-        // })
-        // .otherwise({
-        //   redirectTo: 'partials/error.html',
-        //   templateUrl: 'partials/error.html'
-        // });
+      .when('/', {
+        templateUrl: 'sidepanel_partial.html',
+        controller: 'SidePanelController'
+      })
+      .otherwise({
+        templateUrl: 'sidepanel_partial.html',
+        controller: 'SidePanelController'
+      });
   }
 ]);

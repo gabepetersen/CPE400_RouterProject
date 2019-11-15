@@ -33,7 +33,6 @@
         </div>
         <div id="sim_div">
           <canvas id="sim_canvas"></canvas>
-          <script src="js/drawing.js"></script>
         </div>
       </div>
     </div>
@@ -43,8 +42,9 @@
     <script src="js/lib/angular.js"></script>
     <script src="js/lib/angular-route.js"></script>
 
-    <!-- our angular code -->
-    <script src="js/bin/app.js"></script>
+    <!-- angular code & global variables -->
+    <script src="js/bin/globals.js"></script>
+    <script src="js/bin/initialization.js"></script>
     <script src="js/bin/router.js"></script>
 
     <!-- our object classes -->
@@ -52,11 +52,9 @@
     <script src="js/classes/Router.js"></script>
     <script src="js/classes/Topology.js"></script>
 
-    <!-- our angular controllers (none written yet) -->
-
-    <!-- our other javascript code -->
-    <script src="js/controlpanel.js"></script>
-    <script src="js/sandbox.js"></script>
+    <!-- our javascript code -->
+    <script src="js/drawing.js"></script>
+    <script src="js/SidePanelController.js"></script>
   </body>
 
 </html>
