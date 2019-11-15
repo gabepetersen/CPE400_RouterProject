@@ -63,4 +63,8 @@ class Router {
     // TODO - on each tick, do some things
   }
 
+  init() {
+
+  }
+
 }
