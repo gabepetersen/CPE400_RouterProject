@@ -16,6 +16,10 @@
 // ------------------------------------------
 document.addEventListener('DOMContentLoaded',domloaded,false);
 function domloaded() {
+
+	const WIDTH = 40;
+	const HEIGHT = 40;
+
     // Declare Canvas Variables
 	var canvas = document.getElementById("sim_canvas"),
 		ctx = canvas.getContext("2d"),
@@ -36,7 +40,7 @@ function domloaded() {
     	
     		// If mouseclick is inside router box bounds, select					
     		elements.forEach(function(element) {
-        		if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+        		if (y > element.Y && y < element.Y + HEIGHT && x > element.X && x < element.X + WIDTH) {
         			// alert('clicked router: ' + element.num);
 
 							selectedRouter = true;
@@ -50,41 +54,44 @@ function domloaded() {
 	}, false);
 
 	// Add routers
-	elements.push({
-		Id: "1",
-		num: 1,
-   		width: 40,
-    		height: 40,
-   		top: 20,
-    		left: 20
-	});
-					
-	elements.push({
-		Id: "2",
-		num: 2,
-   		width: 40,
-    		height: 40,
-   		top: 80,
-    		left: 80
-	});
-					
-	elements.push({
-		Id: "3",
-		num: 3,
-		width: 40,
-		height: 40,
-		top: 20,
-		left: 120
-	});
-						
-	elements.push({
-		Id: "4",
-		num: 4,
-		width: 40,
-		height: 40,
-		top: 100,
-		left: 180
-	});
+	// elements.push({
+	// 	Id: "1",
+	// 	num: 1,
+  //  		width: 40,
+  //   		height: 40,
+  //  		top: 20,
+  //   		left: 20
+	// });
+	//
+	// elements.push({
+	// 	Id: "2",
+	// 	num: 2,
+  //  		width: 40,
+  //   		height: 40,
+  //  		top: 80,
+  //   		left: 80
+	// });
+	//
+	// elements.push({
+	// 	Id: "3",
+	// 	num: 3,
+	// 	width: 40,
+	// 	height: 40,
+	// 	top: 20,
+	// 	left: 120
+	// });
+	//
+	// elements.push({
+	// 	Id: "4",
+	// 	num: 4,
+	// 	width: 40,
+	// 	height: 40,
+	// 	top: 100,
+	// 	left: 180
+	// });
+
+	elements.push(GLOB_ROUTER_A);
+	elements.push(GLOB_ROUTER_B);
 						
 	// Make router connections
 	ctx.beginPath();
@@ -101,7 +108,8 @@ function domloaded() {
 	// Render elements.
 	elements.forEach(function(element) {
 		ctx.fillStyle = "#666";
-		ctx.fillRect(element.left, element.top, element.width, element.height);		
+		// ctx.fillRect(element.left, element.top, element.width, element.height);
+		ctx.fillRect(element.X, element.Y, WIDTH, HEIGHT);
 	});	
 }
 				

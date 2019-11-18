@@ -51,7 +51,7 @@ canvas {
 #info_div {
 	height: 100%;
 	grid-area: info;
-	background-color: #666;
+	background-color: lightgray;
 }
 
 /*

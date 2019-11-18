@@ -5,11 +5,28 @@
 class Router {
   constructor(id, x, y) {
     this.Id = id;
+    this.FailChance = 0.50;
     this.Alive = true;
     this.RoutingTable = [];
     this.Queue = [];
     this.X = x;
     this.Y = y;
+  }
+
+  setFailChance(failChance) {
+    failChance = parseFloat(failChance);
+
+    if (failChance > 1.0) {
+      // remove whole number component from floating number
+      failChance -= Math.floor(failChance);
+    }
+    else if (failChance <= 0.0) {
+      // don't save a fail chance of less than 0
+      return;
+    }
+
+    // restrict decimal to 2 digits
+    this.FailChance = failChance.toFixed(2);
   }
 
   addRoute(routerId, nextHop, ttl) {
@@ -39,13 +56,20 @@ class Router {
     return foundIt;
   }
 
-  addToQueue(packet) {
+  addToQueue(src, dest, type, payload, maxHops) {
     // TODO - check if packet queue is full
 
-    this.Queue.push(packet);
+    this.Queue.push(new Packet(src, dest, type, payload, maxHops));
   }
 
   getNextPacket() {
+    if (this.Queue.length === 0)
+      return null;
+
+    return this.Queue[0];
+  }
+
+  popNextPacket() {
     if (this.Queue.length === 0)
       return null;
 

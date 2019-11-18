@@ -32,15 +32,48 @@
           <!-- angular -->
           <div class="vfill" ng-app="cpeAngularApp" ng-controller="SidePanelController">
 
-
+            <!-- router selected -->
             <div ng-if="currentRouter !== null">
-              <p>Router: {{currentRouter.Id}}</p>
-              <p ng-model="currentRouter.Id"></p>
+              <p>Router Id: {{currentRouter.Id}}</p>
+              <p>Fail Chance: <input ng-model="property.failChance"> <button ng-click="setFailChance()">set</button></p>
+              <p>Status: {{currentRouter.Alive ? "Alive" : "Dead"}}</p>
+
+              <!-- Routing Table -->
+              <p>Routing Table:</p>
+              <table>
+                <tr>
+                  <th>ID</th>
+                  <th>NEXT HOP</th>
+                  <th>TTL</th>
+                </tr>
+                <tr ng-repeat="row in currentRouter.RoutingTable">
+                  <td>{{ row.routerId }}</td>
+                  <td>{{ row.nextHop }}</td>
+                  <td>{{ row.ttl }}</td>
+                </tr>
+              </table>
+
+              <!-- Packet Queue -->
+              <p>Packet Queue:</p>
+              <table>
+                <tr>
+                  <th>SRC</th>
+                  <th>DEST</th>
+                  <th>TYPE</th>
+                  <th>DATA</th>
+                </tr>
+                <tr ng-repeat="packet in currentRouter.Queue">
+                  <td>{{ packet.source }}</td>
+                  <td>{{ packet.dest }}</td>
+                  <td>{{ packet.type }}</td>
+                  <td>{{ packet.payload }}</td>
+                </tr>
+              </table>
+
             </div>
 
+            <!-- no router selected -->
             <div ng-if="currentRouter === null">
-              <!--  display nothing? -->
-
               <p>Please select a router</p>
             </div>
 
@@ -59,18 +92,21 @@
     <!-- external library files MUST go first -->
     <script src="js/lib/angular.js"></script>
 
-    <!-- angular code & global variables -->
-    <script src="js/bin/globals.js"></script>
-    <script src="js/bin/initialization.js"></script>
-
     <!-- our object classes -->
     <script src="js/classes/Packet.js"></script>
     <script src="js/classes/Router.js"></script>
     <script src="js/classes/Topology.js"></script>
 
+    <!-- global variables & initialization code -->
+    <script src="js/bin/globals.js"></script>
+    <script src="js/bin/initialization.js"></script>
+
     <!-- our javascript code -->
     <script src="js/drawing.js"></script>
     <script src="js/SidePanelController.js"></script>
+
+
+
   </body>
 
 </html>
