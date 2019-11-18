@@ -1,0 +1,54 @@
+.buttonStart {
+     background-color: green;
+     color: black;
+     padding: 15px 32px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     -webkit-transition-duration: 0.4s;
+     transition-duration: 0.4s;
+     float: left;
+ }
+
+.buttonStart:hover {
+    background-color: white;
+    color: white;
+}
+
+.buttonStop {
+    background-color: red;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    float: left;
+}
+
+.buttonStop:hover {
+    background-color: white;
+    color: white;
+}
+
+.buttonPause {
+    background-color: yellow;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    float: left;
+}
+
+.buttonPause:hover {
+    background-color: white;
+    color: white;
+}
