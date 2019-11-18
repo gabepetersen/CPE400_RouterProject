@@ -28,6 +28,10 @@ class Topology {
     }
   }
 
+  getRouter(routerId) {
+    // TODO - implement
+  }
+
   removeRouter() {
     // TODO - implement
   }
