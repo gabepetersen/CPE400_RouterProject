@@ -4,18 +4,18 @@
  */
 class Router {
   constructor(id, x, y) {
-    this.id = id;
-    this.alive = true;
-    this.routingTable = [];
-    this.queue = [];
-    this.x = x;
-    this.y = y;
+    this.Id = id;
+    this.Alive = true;
+    this.RoutingTable = [];
+    this.Queue = [];
+    this.X = x;
+    this.Y = y;
   }
 
   addRoute(routerId, nextHop, ttl) {
     // TODO - check if routing table is full
 
-    this.routingTable.push({
+    this.RoutingTable.push({
       routerId: routerId,
       nextHop: nextHop,
       ttl: ttl
@@ -26,15 +26,15 @@ class Router {
     let i = 0;
     let foundIt = false;
 
-    for (i; i < this.routingTable.length; i++) {
-      if (this.routingTable[i].id === routerId) {
+    for (i; i < this.RoutingTable.length; i++) {
+      if (this.RoutingTable[i].id === routerId) {
         foundIt = true;
         break;
       }
     }
 
     if (foundIt)
-      this.routingTable.splice(i);
+      this.RoutingTable.splice(i);
 
     return foundIt;
   }
@@ -42,14 +42,14 @@ class Router {
   addToQueue(packet) {
     // TODO - check if packet queue is full
 
-    this.queue.push(packet);
+    this.Queue.push(packet);
   }
 
   getNextPacket() {
-    if (this.queue.length === 0)
+    if (this.Queue.length === 0)
       return null;
 
-    return this.queue.pop();
+    return this.Queue.pop();
   }
 
   tick() {

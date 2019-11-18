@@ -4,15 +4,15 @@
  */
 class Topology {
   constructor() {
-    this.graph = [];
+    this.Graph = [];
   }
 
   hasRouters() {
-    return this.graph.length > 0;
+    return this.Graph.length > 0;
   }
 
   addRouter(router) {
-    let numExistingRouters = this.graph.length;
+    let numExistingRouters = this.Graph.length;
     let newRouterRow = [router];
 
     // init the new row to have all 0s, indicating no edges / connections to other routers
@@ -20,11 +20,11 @@ class Topology {
       newRouterRow.push(0);
     }
 
-    this.graph.push(newRouterRow);
+    this.Graph.push(newRouterRow);
 
     // update each row to have no edge / connection to the new router
-    for (let i = 0; i < this.graph.length; i++) {
-      this.graph[i].push(0);
+    for (let i = 0; i < this.Graph.length; i++) {
+      this.Graph[i].push(0);
     }
   }
 
@@ -50,19 +50,19 @@ class Topology {
     if (ACCEPTED_VALS.indexOf(value) < 0)
       return;
 
-    for (let i = 0; i < this.graph.length; i++) {
-      if (this.graph[i][0].id === fromRouterId)
+    for (let i = 0; i < this.Graph.length; i++) {
+      if (this.Graph[i][0].Id === fromRouterId)
         fromRouterRowNum = i;
 
-      if (this.graph[i][0].id === toRouterId)
+      if (this.Graph[i][0].Id === toRouterId)
         toRouterRowNum = i;
 
       if (fromRouterRowNum !== 0 && toRouterRowNum !== 0)
         break;
     }
 
-    this.graph[fromRouterRowNum][1 + toRouterRowNum] = value;
-    this.graph[toRouterRowNum][1 + fromRouterRowNum] = value;
+    this.Graph[fromRouterRowNum][1 + toRouterRowNum] = value;
+    this.Graph[toRouterRowNum][1 + fromRouterRowNum] = value;
   }
 
   getAllRouters() {
@@ -71,7 +71,7 @@ class Topology {
     let routers = [];
 
     // get the router from each row
-    this.graph.forEach(function(row) {
+    this.Graph.forEach(function(row) {
       routers.push(row[0]);
     });
 
