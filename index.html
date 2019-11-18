@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="cpe400App">
+<html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -27,10 +27,28 @@
       </div>
 
       <div id="sim_container">
+
         <div id="info_div">
-          <!-- required element for angular, where controller code will insert into the page -->
-          <div class="vfill" ng-view></div>
+          <!-- angular -->
+          <div class="vfill" ng-app="cpeAngularApp" ng-controller="SidePanelController">
+
+
+            <div ng-if="currentRouter !== null">
+              <p>Router: {{currentRouter.Id}}</p>
+              <p ng-model="currentRouter.Id"></p>
+            </div>
+
+            <div ng-if="currentRouter === null">
+              <!--  display nothing? -->
+
+              <p>Please select a router</p>
+            </div>
+
+
+
+          </div>
         </div>
+
         <div id="sim_div">
           <canvas id="sim_canvas"></canvas>
         </div>
@@ -40,12 +58,10 @@
 
     <!-- external library files MUST go first -->
     <script src="js/lib/angular.js"></script>
-    <script src="js/lib/angular-route.js"></script>
 
     <!-- angular code & global variables -->
     <script src="js/bin/globals.js"></script>
     <script src="js/bin/initialization.js"></script>
-    <script src="js/bin/router.js"></script>
 
     <!-- our object classes -->
     <script src="js/classes/Packet.js"></script>

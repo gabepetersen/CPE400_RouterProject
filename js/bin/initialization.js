@@ -32,6 +32,8 @@ function setupDefaultRouters() {
  */
 document.addEventListener('DOMContentLoaded', function() {
 
+  console.log("initializing page");
+
   setupDefaultRouters();
 
   // TODO - draw the canvas

@@ -10,10 +10,6 @@
   so our goal here is to prevent them from becoming a mess. **
  */
 
-
-// Declare the angular module immediately
-var GLOB_cpeAngularApp = angular.module('cpeAngularApp', ['ngRoute']);
-
 var GLOB_topology = null;
 
 var GLOB_selectedRouter = null;

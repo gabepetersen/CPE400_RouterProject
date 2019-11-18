@@ -25,6 +25,9 @@ function domloaded() {
 
 	// Add event listener for mouse click events.
 	canvas.addEventListener('click', function(event) {
+
+		let selectedRouter = false;
+
 		// Get relative position of mouseclick from immediate container
 		var x = event.pageX - cLeft,
     			y = event.pageY - cTop;
@@ -34,13 +37,21 @@ function domloaded() {
     		// If mouseclick is inside router box bounds, select					
     		elements.forEach(function(element) {
         		if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
-        			alert('clicked router: ' + element.num);
+        			// alert('clicked router: ' + element.num);
+
+							selectedRouter = true;
+        			GLOB_selectedRouter = element;
         		}
    		});
+
+		if (!selectedRouter)
+			GLOB_selectedRouter = null;
+
 	}, false);
 
 	// Add routers
 	elements.push({
+		Id: "1",
 		num: 1,
    		width: 40,
     		height: 40,
@@ -49,6 +60,7 @@ function domloaded() {
 	});
 					
 	elements.push({
+		Id: "2",
 		num: 2,
    		width: 40,
     		height: 40,
@@ -57,6 +69,7 @@ function domloaded() {
 	});
 					
 	elements.push({
+		Id: "3",
 		num: 3,
 		width: 40,
 		height: 40,
@@ -65,6 +78,7 @@ function domloaded() {
 	});
 						
 	elements.push({
+		Id: "4",
 		num: 4,
 		width: 40,
 		height: 40,

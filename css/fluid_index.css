@@ -11,6 +11,12 @@ body {
 	padding: 0;
 	margin: 0;
 }
+
+canvas {
+	border: 1px solid black;
+}
+
+
 #total_container {
 	width: 80%;
 	display: grid;
