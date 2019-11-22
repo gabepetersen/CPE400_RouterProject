@@ -21,11 +21,20 @@ function domloaded() {
 	const HEIGHT = 40;
 
     // Declare Canvas Variables
-	var canvas = document.getElementById("sim_canvas"),
-		ctx = canvas.getContext("2d"),
-		cLeft = canvas.offsetLeft,
-   	 	cTop = canvas.offsetTop,
-    		elements = [];		   
+	let canvas = document.getElementById("sim_canvas");
+	let ctx = canvas.getContext("2d");
+	let cLeft = 0;
+  let cTop = 0;
+	let routers = [];
+	let edges = [];
+
+	// Set canvas width and height
+	canvas.width  = 400;
+	canvas.height = 400;
+
+	// must set these after setting canvas width and height
+	cLeft = canvas.offsetLeft;
+	cTop = canvas.offsetTop;
 
 	// Add event listener for mouse click events.
 	canvas.addEventListener('click', function(event) {
@@ -39,7 +48,7 @@ function domloaded() {
     		// console.log(x, y);
     	
     		// If mouseclick is inside router box bounds, select					
-    		elements.forEach(function(element) {
+    		routers.forEach(function(element) {
         		if (y > element.Y && y < element.Y + HEIGHT && x > element.X && x < element.X + WIDTH) {
         			// alert('clicked router: ' + element.num);
 
@@ -90,26 +99,48 @@ function domloaded() {
 	// 	left: 180
 	// });
 
-	elements.push(GLOB_ROUTER_A);
-	elements.push(GLOB_ROUTER_B);
+	// elements.push(GLOB_ROUTER_A);
+	// elements.push(GLOB_ROUTER_B);
 						
 	// Make router connections
-	ctx.beginPath();
-	ctx.moveTo(20 + 15, 20 + 15);
-	ctx.lineTo(80 + 15, 80 + 15);
-	ctx.lineTo(120 + 15, 20 + 15);
-	ctx.lineTo(180 + 15, 100 + 15);
-	ctx.stroke();
-	ctx.beginPath();
-	ctx.moveTo(120 + 15, 20 + 15);
-	ctx.lineTo(20 + 15, 20 + 15);	
-	ctx.stroke();
+	// ctx.beginPath();
+	// ctx.moveTo(20 + 15, 20 + 15);
+	// ctx.lineTo(80 + 15, 80 + 15);
+	// ctx.lineTo(120 + 15, 20 + 15);
+	// ctx.lineTo(180 + 15, 100 + 15);
+	// ctx.stroke();
+	// ctx.beginPath();
+	// ctx.moveTo(120 + 15, 20 + 15);
+	// ctx.lineTo(20 + 15, 20 + 15);
+	// ctx.stroke();
+
+
+	edges = GLOB_topology.getAllEdgeDrawingData(WIDTH, HEIGHT);
+
+	// Render edges
+	edges.forEach(function(edge) {
+		ctx.beginPath();
+		ctx.moveTo(edge[0], edge[1]);
+		ctx.lineTo(edge[2], edge[3]);
+		ctx.stroke();
+	});
+
+	routers = GLOB_topology.getAllRouterDrawingData();
 						
-	// Render elements.
-	elements.forEach(function(element) {
-		ctx.fillStyle = "#666";
+	// Render routers
+	routers.forEach(function(element) {
+		ctx.fillStyle = "#d4cfcf";
 		// ctx.fillRect(element.left, element.top, element.width, element.height);
 		ctx.fillRect(element.X, element.Y, WIDTH, HEIGHT);
-	});	
+	});
+
+
+	// ctx.fillText("Hello World", 10, 50);
+	ctx.font = "18px Arial";
+	routers.forEach(function(element) {
+		ctx.fillStyle = "#e31212";
+		ctx.fillText(element.Id, element.X, element.Y);
+	});
+
 }
 				

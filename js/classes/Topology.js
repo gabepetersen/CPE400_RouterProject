@@ -61,15 +61,16 @@ class Topology {
     this.Graph[toRouterRowNum][1 + fromRouterRowNum] = value;
   }
 
-  // TODO - test this function
   getRouter(routerId) {
+    let router = null;
+
     this.Graph.forEach(function(row) {
-      if (row.Id === routerId) {
-        return row[0];
+      if (row[0].Id === routerId) {
+        router = row[0];
       }
     });
 
-    return null;
+    return router;
   }
 
   getAdjacentRouters(routerId) {
@@ -80,63 +81,76 @@ class Topology {
     return this.__getAdjacentRouters(routerId, true);
   }
 
-  // TODO - test this function
   __getAdjacentRouters(routerId, aliveOnly) {
     let routerIndexes = [];
     let adjacentRouters = [];
     let rowLength = this.Graph[0].length;
+    let index = 0;
 
+    // find the row with the given routerId, and then add the indexes of all edges (denoted by a value of 1)
     this.Graph.forEach(function(row) {
-      if (row.Id === routerId) {
+      if (row[0].Id === routerId) {
         for (let i = 1; i < rowLength; i++) {
           if (row[i] === 1) {
-            routerIndexes.push(i);
+            routerIndexes.push(i-1);
           }
         }
       }
     });
 
-    routerIndexes.forEach(function(index) {
+    // for each edge, go to the row and get the router at that row
+    for(let i = 0; i < routerIndexes.length; i++) {
+      index = routerIndexes[i];
+
       // if toggled to true, only add adjacent routers that are currently alive
       if (aliveOnly && this.Graph[index][0].Alive) {
         adjacentRouters.push(this.Graph[index][0]);
       }
       // otherwise, always add adjacent routers
-        else if (!aliveOnly) {
+      else if (!aliveOnly) {
         adjacentRouters.push(this.Graph[index][0]);
       }
-    });
+    }
 
     return adjacentRouters;
   }
 
-  // TODO - test this function
   getAllRouterDrawingData() {
     let drawingData = [];
 
     this.Graph.forEach(function(row) {
       // per row, grab each router's X, Y, and Alive values
-      drawingData.push( [row[0].X, row[0].Y, row[0].Alive] );
+      drawingData.push(row[0]);
     });
 
     return drawingData;
   }
 
-  // TODO - implement & test this function
   getAllEdgeDrawingData(routerWidth, routerHeight) {
     let drawingData = [];
     let xOffset = routerWidth / 2;
     let yOffset = routerHeight / 2;
-    let x0, y0, xF, yF;
+    let x1, y1, x2, y2, row, otherRouter;
 
 
     // iterate over each row
+    for (let i = 0; i < this.Graph.length; i++) {
+      row = this.Graph[i];
 
-      // per row, record x0 and y0
+      x1 = row[0].X + xOffset;
+      y1 = row[0].Y + yOffset;
 
-      // per router connected to this row's router:
+      // start at the diagonal, and find edges
+      for (let j = i; j <= this.Graph.length; j++) {
+        if (row[j+1] == 1) {
+          otherRouter = this.Graph[j][0];
+          x2 = otherRouter.X + xOffset;
+          y2 = otherRouter.Y + yOffset;
+          drawingData.push([x1, y1, x2, y2]);
+        }
+      }
+    }
 
-        // add element to drawingData with [x0, y0, adjacentRouter.X, adjacentRouter.Y]
-
+    return drawingData;
   }
 }
