@@ -115,6 +115,11 @@ class Topology {
     return adjacentRouters;
   }
 
+  getAllRouters() {
+    // at the moment, the whole router object is being passed back for drawing
+    return this.getAllRouterDrawingData();
+  }
+
   getAllRouterDrawingData() {
     let drawingData = [];
 
@@ -152,5 +157,12 @@ class Topology {
     }
 
     return drawingData;
+  }
+
+  tick() {
+    // kill routers at random, so long as less than MAX_DEAD_ROUTERS routers are dead
+
+    // iterate over each router:
+      // router.tick()
   }
 }

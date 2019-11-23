@@ -27,7 +27,7 @@ function setupDefaultRouters() {
 
   GLOB_topology.addRouter(new Router('A', 140, 30));
   GLOB_topology.addRouter(new Router('B', 80, 90));
-  GLOB_topology.addRouter(new Router('C', 20, 150));
+  // GLOB_topology.addRouter(new Router('C', 20, 150));
   GLOB_topology.addRouter(new Router('D', 80, 150));
   GLOB_topology.addRouter(new Router('E', 140, 150));
   GLOB_topology.addRouter(new Router('F', 200, 30));
@@ -35,8 +35,8 @@ function setupDefaultRouters() {
   GLOB_topology.addEdge('A', 'B');
   GLOB_topology.addEdge('A', 'E');
   GLOB_topology.addEdge('A', 'F');
-  GLOB_topology.addEdge('B', 'C');
-  GLOB_topology.addEdge('C', 'D');
+  // GLOB_topology.addEdge('B', 'C');
+  // GLOB_topology.addEdge('C', 'D');
   GLOB_topology.addEdge('D', 'E');
 }
 
