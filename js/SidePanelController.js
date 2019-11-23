@@ -29,8 +29,9 @@ angular.module('cpeAngularApp', [])
     if (routerChanged) {
       $scope.currentRouter = GLOB_selectedRouter;
       $scope.property.failChance = $scope.currentRouter ? $scope.currentRouter.FailChance : null;
-      $scope.$apply();
     }
+
+    $scope.$apply();
   }
 
   function init() {
