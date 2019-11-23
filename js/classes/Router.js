@@ -59,7 +59,7 @@ class Router {
         }
       }
 
-      this.RoutingTable.splice(i);
+      this.RoutingTable.splice(i, 1);
     }
 
     this.RoutingTable.push({
@@ -91,7 +91,7 @@ class Router {
     }
 
     if (foundIt)
-      this.RoutingTable.splice(i);
+      this.RoutingTable.splice(i, 1);
 
     return foundIt;
   }
@@ -145,6 +145,22 @@ class Router {
     return this.Queue.pop();
   }
 
+  cleanTheRouterTable() {
+    let entriesToRemove = [];
+
+    for (let i = 0; i < this.RoutingTable.length; i++) {
+      this.RoutingTable[i].ttl--;
+
+      // remove any entry whose ttl has now 'expired'
+      if (this.RoutingTable[i].ttl <= 0)
+        entriesToRemove.unshift(i);
+    }
+
+    for (let i = 0; i < entriesToRemove.length; i++) {
+      this.RoutingTable.splice(entriesToRemove[i], 1);
+    }
+  }
+
   processNextPacket() {
     let packet = this.popNextPacket();
 
@@ -178,23 +194,43 @@ class Router {
   }
 
   __processThroughPacket(packet) {
+    console.log(`Router ${this.Id} Processing a through packet`);
+    console.log(packet);
 
+    // TODO
   }
 
   __processDiscoveryPacket(packet) {
+    console.log(`Router ${this.Id} Processing a discovery packet`);
+    console.log(packet);
 
+    // TODO
   }
 
   __processRouteAckPacket(packet) {
+    console.log(`Router ${this.Id} Processing a route ack packet`);
+    console.log(packet);
 
+    // TODO
   }
 
   tick() {
-    // TODO - on each tick, do some things
+    // check if router is dead
+    if (this.Alive === false && GLOB_tick_time > this.DeadUntil) {
+      this.Alive = true;
+    }
+
+    // check if router is alive (may have started off dead, but is alive now)
+    if (this.Alive) {
+      this.cleanTheRouterTable();
+      this.processNextPacket();
+    }
+
+
   }
 
   init() {
-
+    // TODO - remove this if unused
   }
 
 }
