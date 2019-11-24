@@ -160,9 +160,18 @@ class Topology {
   }
 
   tick() {
-    // kill routers at random, so long as less than MAX_DEAD_ROUTERS routers are dead
+    let routers = this.getAllRouters();
 
-    // iterate over each router:
-      // router.tick()
+    routers.forEach(function(router) {
+      router.tick();
+    });
+  }
+
+  init() {
+    let routers = this.getAllRouters();
+
+    routers.forEach(function(router) {
+      router.init();
+    });
   }
 }

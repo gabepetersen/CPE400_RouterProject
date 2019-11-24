@@ -10,14 +10,17 @@
   so our goal here is to prevent them from becoming a mess. **
  */
 
-var GLOB_topology = null;
+var GLOB_topology = new Topology();
 var GLOB_selectedRouter = null;
 var GLOB_tick_time = 0;
+var GLOB_routers_dead = 0;
 
 // TODO - should I preface these with GLOB_ ?
 /* class object constants */
 const ROUTER_MAX_ROUTING_TABLE_SIZE = 10;
-const ROUTER_MAX_PACKET_QUEUE_SIZE = 10;
+const ROUTER_MAX_PACKET_QUEUE_SIZE = 15;
+
+const ROUTER_MAX_PERCENT_DEAD = .20;
 
 const PACKET_TYPE_THROUGH = 0;
 const PACKET_TYPE_DISCOVERY = 1;
@@ -52,10 +55,15 @@ function addRouteToA(to, nextHop, ttl) {
 function globalTick() {
   // increment the global tick time
   GLOB_tick_time++;
+  GLOB_topology.tick();
+}
 
-  let routers = GLOB_topology.getAllRouterDrawingData();
+function performTest() {
+  var router = GLOB_topology.getRouter('A');
 
-  routers.forEach(function(router) {
-    router.tick();
-  });
+  // addRouteToA('D', 'B', 3);
+
+  router.addToQueue('A', "D", PACKET_TYPE_THROUGH, "", 3);
+
+  globalTick();
 }

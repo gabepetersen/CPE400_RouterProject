@@ -8,7 +8,7 @@
 
 
 function setupDefaultRouters() {
-  if (GLOB_topology !== null && GLOB_topology.hasRouters()) {
+  if (GLOB_topology.hasRouters()) {
     alert("Attempted to reset the global topology to its default routers. Failing out; default router configuration was not set.");
     return;
   }
@@ -38,6 +38,10 @@ function setupDefaultRouters() {
   // GLOB_topology.addEdge('B', 'C');
   // GLOB_topology.addEdge('C', 'D');
   GLOB_topology.addEdge('D', 'E');
+  GLOB_topology.addEdge('D', 'B');
+
+  // allow routers to discover their neighbors
+  GLOB_topology.init();
 }
 
 /*
