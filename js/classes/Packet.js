@@ -12,7 +12,13 @@ class Packet {
     this.Payload = payload;
     this.MaxHops = maxHops;
     this.HopsLeft = maxHops;
-    this.Delay = -1;
+
+    // set a delay of 1 tick for newly created packets, so they don't move multiple routers in a single tick
+    this.Delay = GLOB_tick_time + 1;
+  }
+
+  getHopsLeft() {
+    return this.HopsLeft;
   }
 
   isDelayed(currentTickTime) {
