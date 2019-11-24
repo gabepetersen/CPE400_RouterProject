@@ -60,15 +60,21 @@
                   <th>SRC</th>
                   <th>DEST</th>
                   <th>TYPE</th>
+                  <th>HL</th>
+                  <th>DELAY</th>
                   <th>DATA</th>
                 </tr>
                 <tr ng-repeat="packet in currentRouter.Queue">
-                  <td>{{ packet.source }}</td>
-                  <td>{{ packet.dest }}</td>
-                  <td>{{ packet.type }}</td>
-                  <td>{{ packet.payload }}</td>
+                  <td>{{ packet.Source }}</td>
+                  <td>{{ packet.Dest }}</td>
+                  <td>{{ packet.Type }}</td>
+                  <td>{{ packet.HopsLeft }}</td>
+                  <td>{{ packet.Delay - tickTime }}</td>
+                  <td>{{ packet.Payload }}</td>
                 </tr>
               </table>
+
+              <p>Global Time: {{tickTime}}</p>
 
             </div>
 

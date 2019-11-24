@@ -1,6 +1,7 @@
 angular.module('cpeAngularApp', [])
     .controller('SidePanelController', ['$scope', function ($scope) {
 
+  $scope.tickTime = 0;
   $scope.currentRouter = null;
   $scope.property = {};
 
@@ -21,7 +22,7 @@ angular.module('cpeAngularApp', [])
       routerChanged = true;
     }
     else if (GLOB_selectedRouter !== null) {
-      if ($scope.currentRouter === null || $scope.currentRouter.Id != GLOB_selectedRouter.Id) {
+      if ($scope.currentRouter === null || $scope.currentRouter.Id !== GLOB_selectedRouter.Id) {
         routerChanged = true;
       }
     }
@@ -31,6 +32,7 @@ angular.module('cpeAngularApp', [])
       $scope.property.failChance = $scope.currentRouter ? $scope.currentRouter.FailChance : null;
     }
 
+    $scope.tickTime = GLOB_tick_time;
     $scope.$apply();
   }
 
