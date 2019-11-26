@@ -154,6 +154,9 @@ function drawCanvas() {
 
 		colorPick = '#DCDCDC';
 
+		if (router.Alive === false)
+			colorPick = GLOB_COLOR_DEAD;
+
 		ctx.fillStyle = colorPick;
 		// ctx.fillRect(element.left, element.top, element.width, element.height);
 		ctx.fillRect(router.X, router.Y, GLOB_CANVAS_ROUTER_WIDTH, GLOB_CANVAS_ROUTER_HEIGHT);

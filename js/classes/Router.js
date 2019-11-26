@@ -7,7 +7,7 @@ class Router {
 
   constructor(id, x, y) {
     this.Id = id;
-    this.FailChance = 0.50;
+    this.FailChance = 0.05;
     this.Alive = true;
     this.DeadUntil = null;
     this.RoutingTable = [];
@@ -30,6 +30,15 @@ class Router {
 
     // restrict decimal to 2 digits
     this.FailChance = failChance.toFixed(2);
+  }
+
+  rollForDeath() {
+    let deadCutoff = this.FailChance * 100;
+    let ticksDead = Math.floor(Math.random() * 3) + 3;
+    let roll = Math.floor(Math.random() * 100) + 1;
+
+    if (roll <= deadCutoff)
+      this.killRouter(ticksDead);
   }
 
   killRouter(ticksDead) {
@@ -405,13 +414,13 @@ class Router {
 
   tick() {
     // check if router is dead
-    if (this.Alive === false && GLOB_tick_time > this.DeadUntil) {
+    if (this.Alive === false && GLOB_tick_time >= this.DeadUntil) {
       GLOB_routers_dead--;
       this.Alive = true;
     }
     // if the router was alive, give it a chance to fail ("die")
-    else {
-      // TODO - allow routers to kill themselves, if less than MAX_DEAD_ROUTERS are dead
+    else if (this.Alive === true && GLOB_routers_dead < ROUTERS_MAX_ALLOWED_DEAD) {
+        this.rollForDeath();
     }
 
     // check if router is alive (may have started off dead, but is alive now)

@@ -17,7 +17,8 @@ var GLOB_routers_dead = 0;
 
 /* drawing constants */
 const GLOB_COLORS = ['#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#696969',
-                    '#808080', '#778899', '#708090', '#2F4F4F', '#000000'];
+                    '#808080', '#778899', '#708090', '#2F4F4F'];
+const GLOB_COLOR_DEAD = '#000000';
 const GLOB_CANVAS_ROUTER_WIDTH = 40;
 const GLOB_CANVAS_ROUTER_HEIGHT = 40;
 
@@ -26,28 +27,13 @@ const GLOB_CANVAS_ROUTER_HEIGHT = 40;
 const ROUTER_MAX_ROUTING_TABLE_SIZE = 10;
 const ROUTER_MAX_PACKET_QUEUE_SIZE = 15;
 
-const ROUTER_MAX_PERCENT_DEAD = .20;
+const ROUTERS_MAX_ALLOWED_DEAD = 2;
 
 const PACKET_TYPE_THROUGH = '->';
 const PACKET_TYPE_DISCOVERY = '??';
 const PACKET_TYPE_ROUTE_ACK = '!';
 
-// TODO - remove this once topology class has implemented getRouter()
-// var GLOB_ROUTER_A = new Router('A', 50, 30);
-// var GLOB_ROUTER_B = new Router('B', 100, 100);
-//
-// GLOB_ROUTER_A.addRoute("D", "B", 15);
-// GLOB_ROUTER_A.addRoute("G", "C", 19);
-//
-// GLOB_ROUTER_B.addRoute("D", "H", 21);
-// GLOB_ROUTER_B.addRoute("K", "M", 24);
-//
-// GLOB_ROUTER_A.addToQueue("A", "D", "send", "", 3);
-// GLOB_ROUTER_A.addToQueue("A", "G", "discover", "A", 15);
-
-
 // TODO - remove these functions once we have dedicated buttons to perform these tasks
-
 function tick() {
   // increment the global tick time
   GLOB_tick_time++;
