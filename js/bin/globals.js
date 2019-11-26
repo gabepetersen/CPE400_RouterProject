@@ -41,29 +41,33 @@ const PACKET_TYPE_ROUTE_ACK = 2;
 
 
 // TODO - remove these functions once we have dedicated buttons to perform these tasks
-function killRouterA() {
-  let router = GLOB_topology.getRouter('A');
-  router.killRouter(3);
-}
 
-function addRouteToA(to, nextHop, ttl) {
-  let router = GLOB_topology.getRouter('A');
-  router.addRoute(to, nextHop, ttl);
-}
-
-// TODO - use Spencer's tick function once he implements it
-function globalTick() {
+function tick() {
   // increment the global tick time
   GLOB_tick_time++;
   GLOB_topology.tick();
 }
 
-function performTest() {
-  var router = GLOB_topology.getRouter('A');
+function addRoute(from, to, nextHop, ttl) {
+  let router = GLOB_topology.getRouter(from);
+  router.addRoute(to, nextHop, ttl);
+}
 
-  // addRouteToA('D', 'B', 3);
+function kill(routerId) {
+  let router = GLOB_topology.getRouter(routerId);
+  router.killRouter(3);
+}
 
-  router.addToQueue('A', "D", PACKET_TYPE_THROUGH, "", 3);
+function sendPacket(from, to, maxHops, type, payload) {
+  if (maxHops === undefined)
+    maxHops = 10;
 
-  globalTick();
+  if (type === undefined)
+    type = PACKET_TYPE_THROUGH;
+
+  if (payload === undefined)
+    payload = "";
+
+  let router = GLOB_topology.getRouter(from);
+  router.addToQueue(from, to, type, payload, maxHops);
 }
