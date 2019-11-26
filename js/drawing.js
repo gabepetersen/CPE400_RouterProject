@@ -15,26 +15,32 @@
 // ------------------------------------------
 // ------------------------------------------
 document.addEventListener('DOMContentLoaded',domloaded,false);
-function domloaded() {
 
-	const WIDTH = 40;
-	const HEIGHT = 40;
-
-    // Declare Canvas Variables
+function initializeCanvas() {
 	let canvas = document.getElementById("sim_canvas");
-	let ctx = canvas.getContext("2d");
-	let cLeft = 0;
-  let cTop = 0;
-	let routers = [];
-	let edges = [];
 
 	// Set canvas width and height
 	canvas.width  = 400;
 	canvas.height = 400;
+}
+
+function domloaded() {
+
+	// Declare Canvas Variables
+	let canvas = document.getElementById("sim_canvas");
+	let cLeft = 0;
+  let cTop = 0;
+	let routers = [];
+
+	// // Set canvas width and height
+	// canvas.width  = 400;
+	// canvas.height = 400;
 
 	// must set these after setting canvas width and height
 	cLeft = canvas.offsetLeft;
 	cTop = canvas.offsetTop;
+
+	routers = GLOB_topology.getAllRouterDrawingData();
 
 	// Add event listener for mouse click events.
 	canvas.addEventListener('click', function(event) {
@@ -49,7 +55,8 @@ function domloaded() {
     	
     		// If mouseclick is inside router box bounds, select					
     		routers.forEach(function(element) {
-        		if (y > element.Y && y < element.Y + HEIGHT && x > element.X && x < element.X + WIDTH) {
+        		if (y > element.Y && y < element.Y + GLOB_CANVAS_ROUTER_HEIGHT &&
+								x > element.X && x < element.X + GLOB_CANVAS_ROUTER_WIDTH) {
         			// alert('clicked router: ' + element.num);
 
 							selectedRouter = true;
@@ -114,8 +121,19 @@ function domloaded() {
 	// ctx.lineTo(20 + 15, 20 + 15);
 	// ctx.stroke();
 
+}
 
-	edges = GLOB_topology.getAllEdgeDrawingData(WIDTH, HEIGHT);
+function drawCanvas() {
+	let canvas = document.getElementById("sim_canvas");
+	let ctx = canvas.getContext("2d");
+	let routers = null;
+	let edges = null;
+	let colorPick = 0;
+
+	// clear canvas before re-drawing
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	edges = GLOB_topology.getAllEdgeDrawingData(GLOB_CANVAS_ROUTER_WIDTH, GLOB_CANVAS_ROUTER_HEIGHT);
 
 	// Render edges
 	edges.forEach(function(edge) {
@@ -126,12 +144,19 @@ function domloaded() {
 	});
 
 	routers = GLOB_topology.getAllRouterDrawingData();
-						
+
 	// Render routers
-	routers.forEach(function(element) {
-		ctx.fillStyle = "#d4cfcf";
+	routers.forEach(function(router) {
+		// color the router according to its level of load (indicated by length of its queue)
+		// colorPick = router.getQueueLength() / 2;
+		// colorPick = colorPick < GLOB_COLORS.length ? colorPick : GLOB_COLORS.length - 1;
+		// colorPick = GLOB_COLORS[colorPick];
+
+		colorPick = '#DCDCDC';
+
+		ctx.fillStyle = colorPick;
 		// ctx.fillRect(element.left, element.top, element.width, element.height);
-		ctx.fillRect(element.X, element.Y, WIDTH, HEIGHT);
+		ctx.fillRect(router.X, router.Y, GLOB_CANVAS_ROUTER_WIDTH, GLOB_CANVAS_ROUTER_HEIGHT);
 	});
 
 
@@ -141,6 +166,5 @@ function domloaded() {
 		ctx.fillStyle = "#e31212";
 		ctx.fillText(element.Id, element.X, element.Y);
 	});
-
 }
 				

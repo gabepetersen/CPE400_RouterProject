@@ -81,6 +81,10 @@ class Router {
     return null;
   }
 
+  getQueueLength() {
+    return this.Queue.length;
+  }
+
   removeRoute(routerId) {
     let i = 0;
     let foundIt = false;
@@ -319,7 +323,42 @@ class Router {
   __processRouteAckPacket(packet) {
     console.log(`Router ${this.Id} Processing a route ack packet`);
 
-    // TODO
+    let thisRouterId = this.Id;
+    let newRouteTTL = 15;
+    let index = packet.Payload.indexOf(this.Id);
+    let source = packet.Payload[0];
+    let dest = packet.Payload[packet.Payload.length - 1];
+    let previousHop;
+    let nextHop;
+    let nextHopStillValid = false;
+
+
+    // handle the case where something unexpected has happened, and this router received a route-ack packet
+    // but wasn't on the route from DEST to SRC
+    if (index === -1)
+      return;
+
+    // to get to the original destination from this router, you'd have to reverse the previous hop, going back 1 step
+    previousHop = packet.Payload[index - 1];
+    nextHop = packet.Payload[index + 1];
+
+    if (this.getNextHop(source) == null) {
+      this.addRoute(source, previousHop, newRouteTTL);
+    }
+
+    if (packet.Dest === this.Id) {
+      console.log(`A route discovery packet meant for Router ${this.Id} arrived at its destination!`);
+    }
+    else {
+      // before forwarding this packet to its nextHop, ensure this router still has a connection to the nextHop router
+      GLOB_topology.getAdjacentRouters(this.Id).forEach(function(router) {
+        if (router.Id === nextHop)
+          nextHopStillValid = true;
+      });
+
+      if (nextHopStillValid)
+        this.sendPacket(packet, nextHop);
+    }
   }
 
   sendPacket(packet, nextHop) {

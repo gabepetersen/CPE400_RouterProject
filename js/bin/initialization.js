@@ -53,6 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setupDefaultRouters();
 
-  // TODO - draw the canvas
-
+  initializeCanvas();
+  drawCanvas();
 });

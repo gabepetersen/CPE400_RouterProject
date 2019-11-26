@@ -15,6 +15,12 @@ var GLOB_selectedRouter = null;
 var GLOB_tick_time = 0;
 var GLOB_routers_dead = 0;
 
+/* drawing constants */
+const GLOB_COLORS = ['#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#696969',
+                    '#808080', '#778899', '#708090', '#2F4F4F', '#000000'];
+const GLOB_CANVAS_ROUTER_WIDTH = 40;
+const GLOB_CANVAS_ROUTER_HEIGHT = 40;
+
 // TODO - should I preface these with GLOB_ ?
 /* class object constants */
 const ROUTER_MAX_ROUTING_TABLE_SIZE = 10;
@@ -22,9 +28,9 @@ const ROUTER_MAX_PACKET_QUEUE_SIZE = 15;
 
 const ROUTER_MAX_PERCENT_DEAD = .20;
 
-const PACKET_TYPE_THROUGH = 0;
-const PACKET_TYPE_DISCOVERY = 1;
-const PACKET_TYPE_ROUTE_ACK = 2;
+const PACKET_TYPE_THROUGH = '->';
+const PACKET_TYPE_DISCOVERY = '??';
+const PACKET_TYPE_ROUTE_ACK = '!';
 
 // TODO - remove this once topology class has implemented getRouter()
 // var GLOB_ROUTER_A = new Router('A', 50, 30);
@@ -46,6 +52,8 @@ function tick() {
   // increment the global tick time
   GLOB_tick_time++;
   GLOB_topology.tick();
+
+  drawCanvas();
 }
 
 function addRoute(from, to, nextHop, ttl) {
