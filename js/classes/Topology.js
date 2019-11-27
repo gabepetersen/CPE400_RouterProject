@@ -28,6 +28,15 @@ class Topology {
     }
   }
 
+  checkID(routerID) {
+  	 for (let i = 0; i < this.Graph.length; i++) {
+      	if (this.Graph[i][0].Id === routerID) {
+       	 	return false;
+    	  	}
+    	 }
+    	 return true;
+  }
+
   addEdge(fromRouterId, toRouterId) {
     this.__setEdge(fromRouterId, toRouterId, 1);
   }

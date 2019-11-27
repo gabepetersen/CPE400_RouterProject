@@ -304,8 +304,9 @@ class Router {
     }
 
     else {
-      packet.Payload += this.Id;
-
+    		if(this.Id !== packet.Payload[packet.Payload.length - 1])
+     		packet.Payload += this.Id;
+	  
       adjacentRouters = GLOB_topology.getAdjacentRouters(this.Id);
 
       // get the list of neighbors who haven't seen this discovery packet yet, or identify if the Dest is among

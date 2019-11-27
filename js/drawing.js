@@ -15,7 +15,7 @@
 // ------------------------------------------
 // ------------------------------------------
 
-document.addEventListener('DOMContentLoaded',domloaded,false);
+document.addEventListener('DOMContentLoaded', domloaded,false);
 
 function initializeCanvas() {
 	let canvas = document.getElementById("sim_canvas");
@@ -26,7 +26,6 @@ function initializeCanvas() {
 }
 
 function domloaded() {
-
 	// Declare Canvas Variables
 	let canvas = document.getElementById("sim_canvas");
 	let cLeft = 0;
@@ -41,14 +40,12 @@ function domloaded() {
 	cLeft = canvas.offsetLeft;
 	cTop = canvas.offsetTop;
 
-<<<<<<< HEAD
-	// Add event listener for mouse click events.2
-=======
-	routers = GLOB_topology.getAllRouterDrawingData();
 
 	// Add event listener for mouse click events.
->>>>>>> ebb5e8309ed25a72ae30de3da6b8d773b9010adc
 	canvas.addEventListener('click', function(event) {
+		
+		// Add event listener for mouse click events.2
+		routers = GLOB_topology.getAllRouterDrawingData();
 
 		let selectedRouter = false;
 
@@ -76,23 +73,7 @@ function domloaded() {
 
 	// Add routers
 	// elements.push(GLOB_ROUTER_A);
-	// elements.push(GLOB_ROUTER_B);
-						
-	// Make router connections
-	// ctx.beginPath();
-	// ctx.moveTo(20 + 15, 20 + 15);
-	// ctx.lineTo(80 + 15, 80 + 15);
-	// ctx.lineTo(120 + 15, 20 + 15);
-	// ctx.lineTo(180 + 15, 100 + 15);
-	// ctx.stroke();
-	// ctx.beginPath();
-	// ctx.moveTo(120 + 15, 20 + 15);
-	// ctx.lineTo(20 + 15, 20 + 15);
-	// ctx.stroke();
-
-<<<<<<< HEAD
-	edges = GLOB_topology.getAllEdgeDrawingData(WIDTH, HEIGHT);
-=======
+	// elements.push(GLOB_ROUTER_B);				
 }
 
 function drawCanvas() {
@@ -106,7 +87,6 @@ function drawCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	edges = GLOB_topology.getAllEdgeDrawingData(GLOB_CANVAS_ROUTER_WIDTH, GLOB_CANVAS_ROUTER_HEIGHT);
->>>>>>> ebb5e8309ed25a72ae30de3da6b8d773b9010adc
 
 	// Render edges
 	edges.forEach(function(edge) {
@@ -119,11 +99,6 @@ function drawCanvas() {
 	routers = GLOB_topology.getAllRouterDrawingData();
 
 	// Render routers
-<<<<<<< HEAD
-	routers.forEach(function(element) {
-		ctx.fillStyle = "#d4cfcf";
-		ctx.fillRect(element.X, element.Y, WIDTH, HEIGHT);
-=======
 	routers.forEach(function(router) {
 		// color the router according to its level of load (indicated by length of its queue)
 		// colorPick = router.getQueueLength() / 2;
@@ -138,7 +113,6 @@ function drawCanvas() {
 		ctx.fillStyle = colorPick;
 		// ctx.fillRect(element.left, element.top, element.width, element.height);
 		ctx.fillRect(router.X, router.Y, GLOB_CANVAS_ROUTER_WIDTH, GLOB_CANVAS_ROUTER_HEIGHT);
->>>>>>> ebb5e8309ed25a72ae30de3da6b8d773b9010adc
 	});
 
 
@@ -147,88 +121,72 @@ function drawCanvas() {
 	routers.forEach(function(element) {
 		ctx.fillStyle = "#e31212";
 		ctx.fillText(element.Id, element.X, element.Y);
-	});
-<<<<<<< HEAD
-	
-	// ------------------------------------------
-	// -----------Footer Responses---------------
-	// ------------------------------------------
-	
-	document.getElementById("addRouterBtn").addEventListener("click", function(e) {
-		// get text fields
-		var id = document.getElementById("router_id").value;
-		var x = document.getElementById("router_x").value;
-		var y = document.getElementById("router_y").value;
+	});	
+}
 
-		console.log("Here is the new router: " + id + ", " + x + ", " + y);
+// ------------------------------------------
+// -----------Footer Responses---------------
+// ------------------------------------------
+	
+document.getElementById("addRouterBtn").addEventListener("click", function(e) {
+	// get text fields
+	var id = document.getElementById("router_id").value;
+	var x = document.getElementById("router_x").value;
+	var y = document.getElementById("router_y").value;
+
+	if(GLOB_topology.checkID(id)) {
+		// display new router creation
+		console.log("Router " + id + " was created at: " + x + ", " + y);
 		
-		GLOB_topology.addRouter(new Router('id', x, y));
-		
-		ctx.fillStyle = "#d4cfcf";
-		ctx.fillRect(x, y, 40, 40);
+		// add router
+		GLOB_topology.addRouter(new Router(id, parseInt(x), parseInt(y)));
 	
 		// clear fields
 		document.getElementById("router_id").value = '';
 		document.getElementById("router_x").value = '';
 		document.getElementById("router_y").value = '';
-	});
-	function addConnection() {
-		// get text fields
-		var f = document.getElementById('first_add');
-		var s = document.getElementById('second_add');
-	
-		// begin the line path
-		ctx.beginPath();		
-		elements.forEach(function(element) {
-			// search elements for first id number
-        		if(element.num == f) {
-        			// if the element matches, move the drawing origin to the first router
-        			ctx.moveTo(element.left + 15, element.top + 15);	
-        		}
-   		});
-   		elements.forEach(function(element) {
-   			// search elements for second id number
-        		if(element.num == s) {
-        			// if the element matches, move the drawing origin to the second router
-        			ctx.lineTo(element.left + 15, element.top + 15);	
-        		}		
-        });
-        // draw the line
-		ctx.stroke();
-	
-		// clear fields
-		document.getElementById('first_add').value = '';
-		document.getElementById('second_add').value = '';
-	}
-	function deleteConnection() {
-		// get text fields
-		var f = document.getElementById('first_delete');
-		var s = document.getElementById('second_delete');
 		
-		// begin the line path
-		ctx.beginPath();		
-		elements.forEach(function(element) {
-			// search elements for first id number
-        		if(element.num == f) {
-        			// if the element matches, move the drawing origin to the first router
-        			ctx.moveTo(element.left + 15, element.top + 15);	
-        		}
-   		});
-   		elements.forEach(function(element) {
-   			// search elements for second id number
-        		if(element.num == s) {
-        			// if the element matches, move the drawing origin to the second router
-        			ctx.lineTo(element.left + 15, element.top + 15);	
-        		}		
-        });
-        // draw the line
-		ctx.stroke();
-	
-		// clear fields
-		document.getElementById('first_delete').value = '';
-		document.getElementById('second_delete').value = '';
+		drawCanvas();	
+	} else {
+		alert("Router ID already Exists");
+		document.getElementById("router_id").value = '';
 	}
-=======
->>>>>>> ebb5e8309ed25a72ae30de3da6b8d773b9010adc
-}
-				
+});
+
+document.getElementById("addConnectionBtn").addEventListener("click", function(e) {
+	// get text fields
+	var f = document.getElementById('first_add').value;
+	var s = document.getElementById('second_add').value;
+	
+	// display addition
+	console.log("Connection between router " + f + " and " + s + " is established");
+	
+	// add edge from the two routers
+	GLOB_topology.addEdge(f, s);
+	
+	// redraw
+	drawCanvas();
+	
+	// clear fields
+	document.getElementById('first_add').value = '';
+	document.getElementById('second_add').value = '';
+});
+
+document.getElementById("deleteConnectionBtn").addEventListener("click", function(e) {
+	// get text fields
+	var f = document.getElementById('first_delete').value;
+	var s = document.getElementById('second_delete').value;
+	
+	// display subtraction
+	console.log("Connection between router " + f + " and " + s + " has been deleted");
+		
+	// remove the edge from the two routers
+	GLOB_topology.removeEdge(f, s);
+	
+	// redraw
+	drawCanvas();
+	
+	// clear fields
+	document.getElementById('first_delete').value = '';
+	document.getElementById('second_delete').value = '';
+});
