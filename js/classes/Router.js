@@ -7,7 +7,7 @@ class Router {
 
   constructor(id, x, y) {
     this.Id = id;
-    this.FailChance = 0.50;
+    this.FailChance = 0.05;
     this.Alive = true;
     this.DeadUntil = null;
     this.RoutingTable = [];
@@ -30,6 +30,15 @@ class Router {
 
     // restrict decimal to 2 digits
     this.FailChance = failChance.toFixed(2);
+  }
+
+  rollForDeath() {
+    let deadCutoff = this.FailChance * 100;
+    let ticksDead = Math.floor(Math.random() * 3) + 3;
+    let roll = Math.floor(Math.random() * 100) + 1;
+
+    if (roll <= deadCutoff)
+      this.killRouter(ticksDead);
   }
 
   killRouter(ticksDead) {
@@ -79,6 +88,10 @@ class Router {
     }
 
     return null;
+  }
+
+  getQueueLength() {
+    return this.Queue.length;
   }
 
   removeRoute(routerId) {
@@ -319,7 +332,42 @@ class Router {
   __processRouteAckPacket(packet) {
     console.log(`Router ${this.Id} Processing a route ack packet`);
 
-    // TODO
+    let thisRouterId = this.Id;
+    let newRouteTTL = 15;
+    let index = packet.Payload.indexOf(this.Id);
+    let source = packet.Payload[0];
+    let dest = packet.Payload[packet.Payload.length - 1];
+    let previousHop;
+    let nextHop;
+    let nextHopStillValid = false;
+
+
+    // handle the case where something unexpected has happened, and this router received a route-ack packet
+    // but wasn't on the route from DEST to SRC
+    if (index === -1)
+      return;
+
+    // to get to the original destination from this router, you'd have to reverse the previous hop, going back 1 step
+    previousHop = packet.Payload[index - 1];
+    nextHop = packet.Payload[index + 1];
+
+    if (this.getNextHop(source) == null) {
+      this.addRoute(source, previousHop, newRouteTTL);
+    }
+
+    if (packet.Dest === this.Id) {
+      console.log(`A route discovery packet meant for Router ${this.Id} arrived at its destination!`);
+    }
+    else {
+      // before forwarding this packet to its nextHop, ensure this router still has a connection to the nextHop router
+      GLOB_topology.getAdjacentRouters(this.Id).forEach(function(router) {
+        if (router.Id === nextHop)
+          nextHopStillValid = true;
+      });
+
+      if (nextHopStillValid)
+        this.sendPacket(packet, nextHop);
+    }
   }
 
   sendPacket(packet, nextHop) {
@@ -366,13 +414,13 @@ class Router {
 
   tick() {
     // check if router is dead
-    if (this.Alive === false && GLOB_tick_time > this.DeadUntil) {
+    if (this.Alive === false && GLOB_tick_time >= this.DeadUntil) {
       GLOB_routers_dead--;
       this.Alive = true;
     }
     // if the router was alive, give it a chance to fail ("die")
-    else {
-      // TODO - allow routers to kill themselves, if less than MAX_DEAD_ROUTERS are dead
+    else if (this.Alive === true && GLOB_routers_dead < ROUTERS_MAX_ALLOWED_DEAD) {
+        this.rollForDeath();
     }
 
     // check if router is alive (may have started off dead, but is alive now)

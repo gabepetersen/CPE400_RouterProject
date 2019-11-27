@@ -37,13 +37,14 @@
               <p>Router Id: {{currentRouter.Id}}</p>
               <p>Fail Chance: <input ng-model="property.failChance"> <button ng-click="setFailChance()">set</button></p>
               <p>Status: {{currentRouter.Alive ? "Alive" : "Dead"}}</p>
+              <p ng-if="currentRouter.Alive === false">Alive in: {{currentRouter.DeadUntil - tickTime}} ticks</p>
 
               <!-- Routing Table -->
               <p>Routing Table:</p>
               <table>
                 <tr>
-                  <th>ID</th>
-                  <th>NEXT HOP</th>
+                  <th>DEST</th>
+                  <th>NEXT-HOP</th>
                   <th>TTL</th>
                 </tr>
                 <tr ng-repeat="row in currentRouter.RoutingTable">

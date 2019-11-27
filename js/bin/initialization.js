@@ -16,18 +16,9 @@ function setupDefaultRouters() {
   // setup the topology completely from scratch
   GLOB_topology = new Topology();
 
-  // GLOB_topology.addRouter(new Router('A', 250, 150));
-  // GLOB_topology.addRouter(new Router('B', 200, 200));
-  // GLOB_topology.addRouter(new Router('C', 300, 200));
-  // GLOB_topology.addRouter(new Router('D', 250, 250));
-  // GLOB_topology.addEdge('A', 'B');
-  // GLOB_topology.addEdge('A', 'C');
-  // GLOB_topology.addEdge('D', 'B');
-  // GLOB_topology.addEdge('D', 'C');
-
   GLOB_topology.addRouter(new Router('A', 140, 30));
   GLOB_topology.addRouter(new Router('B', 80, 90));
-  // GLOB_topology.addRouter(new Router('C', 20, 150));
+  GLOB_topology.addRouter(new Router('C', 20, 150));
   GLOB_topology.addRouter(new Router('D', 80, 150));
   GLOB_topology.addRouter(new Router('E', 140, 150));
   GLOB_topology.addRouter(new Router('F', 200, 30));
@@ -35,8 +26,8 @@ function setupDefaultRouters() {
   GLOB_topology.addEdge('A', 'B');
   GLOB_topology.addEdge('A', 'E');
   GLOB_topology.addEdge('A', 'F');
-  // GLOB_topology.addEdge('B', 'C');
-  // GLOB_topology.addEdge('C', 'D');
+  GLOB_topology.addEdge('B', 'C');
+  GLOB_topology.addEdge('C', 'D');
   GLOB_topology.addEdge('D', 'E');
   GLOB_topology.addEdge('D', 'B');
 
@@ -53,6 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setupDefaultRouters();
 
-  // TODO - draw the canvas
-
+  initializeCanvas();
+  drawCanvas();
 });
