@@ -127,7 +127,8 @@ function drawCanvas() {
 // ------------------------------------------
 // -----------Footer Responses---------------
 // ------------------------------------------
-	
+
+// ADD NEW ROUTERS	
 document.getElementById("addRouterBtn").addEventListener("click", function(e) {
 	// get text fields
 	var id = document.getElementById("router_id").value;
@@ -153,6 +154,7 @@ document.getElementById("addRouterBtn").addEventListener("click", function(e) {
 	}
 });
 
+// ADD NEW CONNECTIONS
 document.getElementById("addConnectionBtn").addEventListener("click", function(e) {
 	// get text fields
 	var f = document.getElementById('first_add').value;
@@ -172,6 +174,7 @@ document.getElementById("addConnectionBtn").addEventListener("click", function(e
 	document.getElementById('second_add').value = '';
 });
 
+// DELETE CONNECTIONS
 document.getElementById("deleteConnectionBtn").addEventListener("click", function(e) {
 	// get text fields
 	var f = document.getElementById('first_delete').value;
@@ -189,4 +192,22 @@ document.getElementById("deleteConnectionBtn").addEventListener("click", functio
 	// clear fields
 	document.getElementById('first_delete').value = '';
 	document.getElementById('second_delete').value = '';
+});
+
+// SEND PACKETS
+document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
+	// get text fields
+	var f = document.getElementById('router_from').value;
+	var t = document.getElementById('router_to').value;
+	
+	// display packet send
+	console.log("Sending packet from router " + f + " to " + t + ":");
+	
+	// send out packet
+	let from = GLOB_topology.getRouter(f);
+	from.addToQueue(f, t, PACKET_TYPE_THROUGH, "", 10);
+	
+	// clear fields
+	document.getElementById('router_from').value = '';
+	document.getElementById('router_to').value = '';
 });
