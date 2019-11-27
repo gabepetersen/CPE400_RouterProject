@@ -1,4 +1,4 @@
-.buttonStart {
+.btn-group .buttonStart {
      background-color: green;
      color: black;
      padding: 15px 32px;
@@ -11,12 +11,12 @@
      float: left;
  }
 
-.buttonStart:hover {
+.btn-group .buttonStart:hover {
     background-color: white;
     color: white;
 }
 
-.buttonStop {
+.btn-group .buttonStop {
     background-color: red;
     color: black;
     padding: 15px 32px;
@@ -29,12 +29,12 @@
     float: left;
 }
 
-.buttonStop:hover {
+.btn-group. buttonStop:hover {
     background-color: white;
     color: white;
 }
 
-.buttonPause {
+.btn-group .buttonPause {
     background-color: yellow;
     border: none;
     color: black;
@@ -48,7 +48,7 @@
     float: left;
 }
 
-.buttonPause:hover {
+.btn-group .buttonPause:hover {
     background-color: white;
     color: white;
 }
