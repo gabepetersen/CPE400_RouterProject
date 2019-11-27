@@ -22,15 +22,12 @@ canvas {
 	width: 80%;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 100px 1fr;
-	grid-gap: 10px;
-
+	grid-template-rows: 100px 1fr 100px;
+	grid-gap: 10px; 
 
 	border: 1px solid black;
 	height: 100%;
 	margin: auto;
-
-
 }
 
 /* DO SOMETHING WITH THIS LATER */
@@ -43,9 +40,29 @@ canvas {
 #sim_container {
 	display: grid;
 	grid-template-columns: 40% 60%;
-	/*grid-gap: 10px;*/
 	grid-template-areas: 'info sim';
 	justify-content: center;
+}
+#footer_container {
+	width 100%;
+	background-color: #0E0E4C;
+	display: grid;
+	grid-template-columns: 40% 60%;
+	grid-template-areas: 'simc addr'
+						 'simc addc'
+						 'simc delc';
+}
+#sim_control {
+	grid-area: simc;
+}
+#add_router {
+	grid-area: addr;
+}
+#add_connection {
+	grid-area: addc;
+}
+#delete_connection {
+	grid-area: delc;
 }
 
 /* INSERT STYLING FOR INFO_DIV HERE - UPDATE FUNCTION */
@@ -67,3 +84,4 @@ canvas {
 #sim_div canvas {
 	display: inline;	
 }
+
