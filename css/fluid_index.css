@@ -1,5 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
+/* Stylizes most of the page except for the SidePanel */
 
 html {
 	padding: 0;
@@ -7,7 +8,6 @@ html {
 }
 
 body {
-	height: 600px;
 	padding: 0;
 	margin: 0;
 }
@@ -17,12 +17,27 @@ canvas {
 	/*DO NOT SET CANVAS WIDTH / HEIGHT IN CSS*/
 }
 
+#main_title {
+	font-size: 30px;
+	display: inline-block;
+	float: left;
+	color: #7cfc00;
+	padding: 40px;
+}
 
+#name_list {
+	display: inline-block;
+	float: right;
+	color: #7cfc00;
+	padding: 8px;
+}
+
+/* styling for the top level grid - header, sim, footer*/
 #total_container {
-	width: 80%;
+	width: 90%;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 100px 1fr 100px;
+	grid-template-rows: 100px 1fr 150px;
 	grid-gap: 10px; 
 
 	border: 1px solid black;
@@ -30,29 +45,47 @@ canvas {
 	margin: auto;
 }
 
-/* DO SOMETHING WITH THIS LATER */
+/* styling for the top header */
 #top_header {
 	width: 100%;
 	background-color: #0E0E4C;
 	box-sizing: border-box;
 }
 
+/* styling for the sim grid */
 #sim_container {
 	display: grid;
 	grid-template-columns: 40% 60%;
 	grid-template-areas: 'info sim';
 	justify-content: center;
 }
+
+/* styling for the footer */
 #footer_container {
+	padding: 10px;
 	width 100%;
 	background-color: #0E0E4C;
 	display: grid;
+	grid-gap: 10px;
 	grid-template-columns: 40% 60%;
 	grid-template-areas: 'simc addr'
 						 'simc addc'
-						 'simc delc';
+						 'simc delc'
+						 'simc pack';
 }
+
+.footer_form {
+	display: block;
+	float: left;
+	margin-right: 20px;
+}
+.footer_text {
+	color: #FFF;
+}
+
+/* stylings for the form entries */
 #sim_control {
+	padding: 10px;
 	grid-area: simc;
 }
 #add_router {
@@ -64,10 +97,25 @@ canvas {
 #delete_connection {
 	grid-area: delc;
 }
+#packet_send {
+	grid-area: pack;
+}
 
-/* INSERT STYLING FOR INFO_DIV HERE - UPDATE FUNCTION */
+/* router text forms */
+#router_from, #router_to, #first_delete, #second_delete, 
+	#first_add, #second_add, #router_id, #router_x, #router_y {
+	width: 50px;
+}
+#sendPacketBtn, #addRouterBtn, #addConnectionBtn, #deleteConnectionBtn {
+	width: 150px;
+	display: inline-block;
+	float: right;
+	margin-right: 20px;
+}
+/* styling for the sim grid */
 #info_div {
 	height: 100%;
+	padding: 20px;
 	grid-area: info;
 	background-color: lightgray;
 }

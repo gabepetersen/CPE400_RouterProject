@@ -6,9 +6,8 @@
 // -----------------TODO---------------------
 // ------------------------------------------
 //
-// - Develop a user input system, where the user can add routers and connections
 // - When routers are clicked, draw a surrounding selection
-// - When routers are selected, send selection to update control panel
+// - Add a start stop button
 // - Draw paths of packets when shipped by routers
 // - Stylize
 //
@@ -21,8 +20,8 @@ function initializeCanvas() {
 	let canvas = document.getElementById("sim_canvas");
 
 	// Set canvas width and height
-	canvas.width  = 400;
-	canvas.height = 400;
+	canvas.width  = 750;
+	canvas.height = 450;
 }
 
 function domloaded() {
@@ -211,3 +210,9 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 	document.getElementById('router_from').value = '';
 	document.getElementById('router_to').value = '';
 });
+
+// Every Tick
+	// Get all routers
+		// GLOB_topology.getAllRouters()
+			// router.getQueueLength()
+			
