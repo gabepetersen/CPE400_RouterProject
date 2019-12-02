@@ -169,6 +169,7 @@ class Topology {
   }
 
   tick() {
+    GLOB_tick_time++;
     let routers = this.getAllRouters();
 
     routers.forEach(function(router) {
