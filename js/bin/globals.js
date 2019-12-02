@@ -15,6 +15,7 @@ var GLOB_topology = new Topology();
 var GLOB_selectedRouter = null;
 var GLOB_tick_time = 0;
 var GLOB_routers_dead = 0;
+var GLOB_taskID;
 
 /* drawing constants */
 const GLOB_COLORS = ['#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#696969',
@@ -35,8 +36,6 @@ const PACKET_TYPE_ROUTE_ACK = '!';
 
 // TODO - remove these functions once we have dedicated buttons to perform these tasks
 function tick() {
-  // increment the global tick time
-  GLOB_tick_time++;
   GLOB_topology.tick();
 
   drawCanvas();

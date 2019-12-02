@@ -250,4 +250,15 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 	document.getElementById('router_to').value = '';
 });
 
+
+document.getElementById( "startTickingBtn").addEventListener("click", function(e){
+	GLOB_taskID = setInterval(function(){GLOB_topology.tick()},  3000);
+	console.log("Starts Ticking");
+});
+
+document.getElementById( "stopTickingBtn").addEventListener("click", function(e){
+	clearInterval(GLOB_taskID);
+	console.log("Stops Ticking");
+});
+
 			
