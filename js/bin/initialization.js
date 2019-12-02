@@ -40,7 +40,7 @@ function setupDefaultRouters() {
  */
 document.addEventListener('DOMContentLoaded', function() {
 
-  console.log("initializing page");
+  console.log("Initializing the page.");
 
   setupDefaultRouters();
 

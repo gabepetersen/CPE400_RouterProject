@@ -37,7 +37,7 @@ angular.module('cpeAngularApp', [])
   }
 
   function init() {
-    console.log("initializing SidePanel Controller");
+    console.log("Initializing the SidePanel controller.");
 
     // start a task that continually checks if the selected router has changed
     selectedRouterTaskId = setInterval(taskCheckSelectedRouter, 200);
