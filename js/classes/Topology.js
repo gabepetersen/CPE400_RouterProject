@@ -62,7 +62,7 @@ class Topology {
       if (this.Graph[i][0].Id === toRouterId)
         toRouterRowNum = i;
 
-      if (fromRouterRowNum !== 0 && toRouterRowNum !== 0)
+      if (fromRouterRowNum !== -1 && toRouterRowNum !== -1)
         break;
     }
 
