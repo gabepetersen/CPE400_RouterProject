@@ -191,12 +191,18 @@ document.getElementById("addConnectionBtn").addEventListener("click", function(e
 	// get text fields
 	var f = document.getElementById('first_add').value;
 	var s = document.getElementById('second_add').value;
-	
-	// display addition
-	console.log("Connection between router " + f + " and " + s + " is established");
-	
-	// add edge from the two routers
-	GLOB_topology.addEdge(f, s);
+
+	// automatically convert f and s to uppercase, just to be thorough
+	f = f.toUpperCase();
+	s = s.toUpperCase();
+
+	// add edges between the two routers
+	if (GLOB_topology.addEdge(f, s)) {
+		console.log("a connection between router " + f + " and " + s + " was established.");
+	}
+	else {
+		alert(`failed to connect router ${f} with router ${s} - one or both router ids may be invalid.`);
+	}
 	
 	// redraw
 	drawCanvas();

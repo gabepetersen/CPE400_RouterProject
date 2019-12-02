@@ -38,18 +38,18 @@ class Topology {
   }
 
   addEdge(fromRouterId, toRouterId) {
-    this.__setEdge(fromRouterId, toRouterId, 1);
+    return this.__setEdge(fromRouterId, toRouterId, 1);
   }
 
   removeEdge(fromRouterId, toRouterId) {
-    this.__setEdge(fromRouterId, toRouterId, 0);
+    return this.__setEdge(fromRouterId, toRouterId, 0);
   }
 
   /* private function: sets a given edge to either 0 or 1 */
   __setEdge(fromRouterId, toRouterId, value) {
     const ACCEPTED_VALS = [0,1];
-    let fromRouterRowNum = 0;
-    let toRouterRowNum = 0;
+    let fromRouterRowNum = -1;
+    let toRouterRowNum = -1;
 
     // protection: cannot accept edges with values other than 0 or 1
     if (ACCEPTED_VALS.indexOf(value) < 0)
@@ -66,8 +66,14 @@ class Topology {
         break;
     }
 
+    // fail out of setting edges if the provided router IDs couldn't be found
+    if (fromRouterRowNum === -1 && toRouterRowNum === -1)
+      return false;
+
     this.Graph[fromRouterRowNum][1 + toRouterRowNum] = value;
     this.Graph[toRouterRowNum][1 + fromRouterRowNum] = value;
+
+    return true;
   }
 
   getRouter(routerId) {
