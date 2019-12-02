@@ -13,7 +13,7 @@ angular.module('cpeAngularApp', [])
     $scope.property.failChance = $scope.currentRouter.FailChance;
     console.log($scope.currentRouter.FailChance);
   };
-
+	
   function taskCheckSelectedRouter() {
     let routerChanged = false;
 

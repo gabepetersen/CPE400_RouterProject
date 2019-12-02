@@ -8,13 +8,13 @@
 //
 // - When routers are clicked, draw a surrounding selection
 // - Add a start stop button
-// - Draw paths of packets when shipped by routers
 // - Stylize
 //
 // ------------------------------------------
 // ------------------------------------------
 
-document.addEventListener('DOMContentLoaded', domloaded,false);
+let canvas = document.getElementById("sim_canvas");
+let ctx = canvas.getContext("2d");
 
 function initializeCanvas() {
 	let canvas = document.getElementById("sim_canvas");
@@ -24,21 +24,21 @@ function initializeCanvas() {
 	canvas.height = 450;
 }
 
+document.addEventListener('DOMContentLoaded', domloaded,false);
 function domloaded() {
 	// Declare Canvas Variables
-	let canvas = document.getElementById("sim_canvas");
+	//let canvas = document.getElementById("sim_canvas");
 	let cLeft = 0;
     let cTop = 0;
 	let routers = [];
 
-	// // Set canvas width and height
+	// Set canvas width and height
 	// canvas.width  = 400;
 	// canvas.height = 400;
 
 	// must set these after setting canvas width and height
 	cLeft = canvas.offsetLeft;
 	cTop = canvas.offsetTop;
-
 
 	// Add event listener for mouse click events.
 	canvas.addEventListener('click', function(event) {
@@ -61,7 +61,22 @@ function domloaded() {
         			// alert('clicked router: ' + element.num);
 
 				selectedRouter = true;
-        			GLOB_selectedRouter = element;
+				GLOB_selectedRouter = element;
+				
+		    // -----------
+		    // This stuff tries to make selection boundary work
+		    // ------------
+			// if(selectedRouter == false) {
+			//	   GLOB_selectedRouter = element;
+        		//		   ctx.fillStyle = 'blue';
+			//		   ctx.fillRect( (GLOB_selectedRouter.X - 5),
+			//		  		  (GLOB_selectedRouter.Y - 5),
+			//		  		  (GLOB_CANVAS_ROUTER_WIDTH + 10),
+			//		  		  (GLOB_CANVAS_ROUTER_HEIGHT + 10) );	
+			//	} else {
+			//		// unselect the stuff
+			//	}
+        			
         		}
    		});
 
@@ -76,8 +91,6 @@ function domloaded() {
 }
 
 function drawCanvas() {
-	let canvas = document.getElementById("sim_canvas");
-	let ctx = canvas.getContext("2d");
 	let routers = null;
 	let edges = null;
 	let colorPick = 0;
@@ -112,16 +125,36 @@ function drawCanvas() {
 		ctx.fillStyle = colorPick;
 		// ctx.fillRect(element.left, element.top, element.width, element.height);
 		ctx.fillRect(router.X, router.Y, GLOB_CANVAS_ROUTER_WIDTH, GLOB_CANVAS_ROUTER_HEIGHT);
+		
+		// get the queue length of the individual router
+		var qLength = router.getQueueLength();
+		var packetInc = 0;
+		ctx.fillStyle = 'green';
+		// for every packet in the router
+		for(var i = 0; i < qLength; i++) {
+			// fill router shape with green squares corresponding to held packets
+			ctx.fillRect( (router.X + GLOB_CANVAS_ROUTER_WIDTH - 5 - packetInc),
+						  (router.Y + GLOB_CANVAS_ROUTER_WIDTH - 5),
+						  5, 
+						  5 );
+			packetInc = packetInc + 6;
+		}
 	});
-
-
-	// ctx.fillText("Hello World", 10, 50);
+	
+	// render text for each router
 	ctx.font = "18px Arial";
 	routers.forEach(function(element) {
 		ctx.fillStyle = "#e31212";
 		ctx.fillText(element.Id, element.X, element.Y);
 	});	
 }
+
+
+// Every Tick
+
+	// Get all routers
+		// GLOB_topology.getAllRouters()
+			// router.getQueueLength()
 
 // ------------------------------------------
 // -----------Footer Responses---------------
@@ -211,8 +244,4 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 	document.getElementById('router_to').value = '';
 });
 
-// Every Tick
-	// Get all routers
-		// GLOB_topology.getAllRouters()
-			// router.getQueueLength()
 			
