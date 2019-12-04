@@ -30,8 +30,11 @@ const ROUTER_MAX_PACKET_QUEUE_SIZE = 15;
 
 const ROUTERS_MAX_ALLOWED_DEAD = 2;
 
+// green
 const PACKET_TYPE_THROUGH = '-->';
+// red
 const PACKET_TYPE_DISCOVERY = '??';
+// blue
 const PACKET_TYPE_ROUTE_ACK = '!';
 
 // TODO - remove these functions once we have dedicated buttons to perform these tasks
