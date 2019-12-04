@@ -191,7 +191,13 @@ class Router {
     let entriesToRemove = [];
 
     for (let i = 0; i < this.RoutingTable.length; i++) {
-      this.RoutingTable[i].ttl--;
+      // these entries seem to be bugged, so just don't decrement them
+      if (this.RoutingTable[i].routerId === this.RoutingTable[i].nextHop) {
+        // do nothing
+      }
+      else {
+        this.RoutingTable[i].ttl--;
+      }
 
       // remove any entry whose ttl has now 'expired'
       if (this.RoutingTable[i].ttl <= 0)
@@ -284,7 +290,7 @@ class Router {
     let tempData = null;
     let data = '';
     let routeAckPacket = null;
-    let routeAckMaxHops = 10;
+    let routeAckMaxHops = 7;
     let destIsAdjacent = false;
     let broadcastList = [];
     let adjacentRouters = null;
@@ -334,7 +340,7 @@ class Router {
     console.log(`Router ${this.Id} Processing a route ack packet`);
 
     let thisRouterId = this.Id;
-    let newRouteTTL = 15;
+    let newRouteTTL = 30;
     let index = packet.Payload.indexOf(this.Id);
     let source = packet.Payload[0];
     let dest = packet.Payload[packet.Payload.length - 1];

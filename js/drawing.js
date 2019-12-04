@@ -217,7 +217,10 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 	// get text fields
 	var f = document.getElementById('router_from').value;
 	var t = document.getElementById('router_to').value;
-	
+
+	f = f.toUpperCase();
+	t = t.toUpperCase();
+
 	// display packet send
 	console.log("Sending packet from router " + f + " to " + t + ":");
 	
@@ -237,18 +240,24 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 
 
 document.getElementById( "startTickingBtn").addEventListener("click", function(e){
-	GLOB_taskID = setInterval(function(){
-		GLOB_topology.tick();
-		drawCanvas();
-	},  1500);
-	console.log("Starts Ticking");
+	if (GLOB_taskID === -1) {
+    GLOB_taskID = setInterval(function(){
+      GLOB_topology.tick();
+      drawCanvas();
+    },  1500);
+    console.log("Starts Ticking");
+  }
 });
 
 document.getElementById( "stopTickingBtn").addEventListener("click", function(e){
-	clearInterval(GLOB_taskID);
-	console.log("Stops Ticking");
-	// draw packet queue
-	drawCanvas();
+  if (GLOB_taskID !== -1) {
+    clearInterval(GLOB_taskID);
+    GLOB_taskID = -1;
+    console.log("Stops Ticking");
+    // draw packet queue
+    drawCanvas();
+  }
+
 });
 
 			

@@ -80,7 +80,7 @@
                   <td>{{ packet.Dest }}</td>
                   <td>{{ packet.Type }}</td>
                   <td>{{ packet.HopsLeft }}</td>
-                  <td>{{ packet.Delay - tickTime }}</td>
+                  <td>{{ packet.Delay - tickTime > 0 ? packet.Delay - tickTime : 0 }}</td>
                   <td>{{ packet.Payload }}</td>
                 </tr>
               </table>

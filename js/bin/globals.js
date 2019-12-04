@@ -15,7 +15,7 @@ var GLOB_topology = new Topology();
 var GLOB_selectedRouter = null;
 var GLOB_tick_time = 0;
 var GLOB_routers_dead = 0;
-var GLOB_taskID;
+var GLOB_taskID = -1;
 
 /* drawing constants */
 const GLOB_COLORS = ['#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#696969',
