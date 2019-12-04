@@ -53,6 +53,43 @@ function setupDefaultRouters() {
   GLOB_topology.addEdge('C', 'D');
   GLOB_topology.addEdge('D', 'E');
   GLOB_topology.addEdge('D', 'B');
+  GLOB_topology.addEdge('A','I');
+  GLOB_topology.addEdge('E','R');
+  GLOB_topology.addEdge('E','Q');
+  GLOB_topology.addEdge('Q','S');
+  GLOB_topology.addEdge('Q','U');
+  GLOB_topology.addEdge('S','T');
+  GLOB_topology.addEdge('R','T');
+  GLOB_topology.addEdge('R','V');
+  GLOB_topology.addEdge('U','V');
+  GLOB_topology.addEdge('R','H');
+  GLOB_topology.addEdge('F','K');
+  GLOB_topology.addEdge('I','K');
+  GLOB_topology.addEdge('R','J');
+  GLOB_topology.addEdge('H','V');
+  GLOB_topology.addEdge('I','L');
+  GLOB_topology.addEdge('J','R');
+  GLOB_topology.addEdge('I','O');
+  GLOB_topology.addEdge('O','H');
+  GLOB_topology.addEdge('O','V');
+  GLOB_topology.addEdge('J','O');
+  GLOB_topology.addEdge('K','M');
+  GLOB_topology.addEdge('K','N');
+  GLOB_topology.addEdge('K','L');
+  GLOB_topology.addEdge('O','W');
+  GLOB_topology.addEdge('H','W');
+  GLOB_topology.addEdge('V','G');
+  GLOB_topology.addEdge('G','Y');
+  GLOB_topology.addEdge('W','Y');
+  GLOB_topology.addEdge('X','Y');
+  GLOB_topology.addEdge('L','P');
+  GLOB_topology.addEdge('P','X');
+  GLOB_topology.addEdge('N','X');
+  GLOB_topology.addEdge('L','O');
+  GLOB_topology.addEdge('N','P');
+  GLOB_topology.addEdge('P','W');
+  GLOB_topology.addEdge('C','Q');
+
 
   // allow routers to discover their neighbors
   GLOB_topology.init();
