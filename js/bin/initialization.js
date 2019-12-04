@@ -17,11 +17,34 @@ function setupDefaultRouters() {
   GLOB_topology = new Topology();
 
   GLOB_topology.addRouter(new Router('A', 140, 30));
-  GLOB_topology.addRouter(new Router('B', 80, 90));
-  GLOB_topology.addRouter(new Router('C', 20, 150));
+  GLOB_topology.addRouter(new Router('B', 72, 90));
+  GLOB_topology.addRouter(new Router('C', 20, 169));
   GLOB_topology.addRouter(new Router('D', 80, 150));
-  GLOB_topology.addRouter(new Router('E', 140, 150));
-  GLOB_topology.addRouter(new Router('F', 200, 30));
+  GLOB_topology.addRouter(new Router('E', 152, 163));
+
+  GLOB_topology.addRouter(new Router('F', 210, 39));
+  GLOB_topology.addRouter(new Router('G', 400, 400));
+  GLOB_topology.addRouter(new Router('H', 300, 300));
+  GLOB_topology.addRouter(new Router('I', 205, 113));
+  GLOB_topology.addRouter(new Router('J', 223, 183));
+
+  GLOB_topology.addRouter(new Router('K', 288, 70));
+  GLOB_topology.addRouter(new Router('L', 310, 150));
+  GLOB_topology.addRouter(new Router('M', 360, 40));
+  GLOB_topology.addRouter(new Router('N', 425, 108));
+  GLOB_topology.addRouter(new Router('O', 292, 230));
+
+  GLOB_topology.addRouter(new Router('P', 376, 180));
+  GLOB_topology.addRouter(new Router('Q', 82, 230));
+  GLOB_topology.addRouter(new Router('R', 182, 245));
+  GLOB_topology.addRouter(new Router('S', 20, 279));
+  GLOB_topology.addRouter(new Router('T', 80, 339));
+
+  GLOB_topology.addRouter(new Router('U', 162, 315));
+  GLOB_topology.addRouter(new Router('V', 242, 355));
+  GLOB_topology.addRouter(new Router('W', 380, 313));
+  GLOB_topology.addRouter(new Router('X', 460, 236));
+  GLOB_topology.addRouter(new Router('Y', 480, 339));
 
   GLOB_topology.addEdge('A', 'B');
   GLOB_topology.addEdge('A', 'E');
