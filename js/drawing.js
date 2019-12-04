@@ -231,6 +231,8 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 	// clear fields
 	document.getElementById('router_from').value = '';
 	document.getElementById('router_to').value = '';
+
+	alert("Press the 'Start Ticking' button to see packets get sent.");
 });
 
 
