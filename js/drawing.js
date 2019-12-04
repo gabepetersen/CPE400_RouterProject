@@ -3,14 +3,6 @@
 /// Draws on the Canvas
 
 // ------------------------------------------
-// -----------------TODO---------------------
-// ------------------------------------------
-//
-// - When routers are clicked, draw a surrounding selection
-// - Add a start stop button
-// - Stylize
-//
-// ------------------------------------------
 // ------------------------------------------
 
 let canvas = document.getElementById("sim_canvas");
@@ -20,7 +12,7 @@ function initializeCanvas() {
 	let canvas = document.getElementById("sim_canvas");
 
 	// Set canvas width and height
-	canvas.width  = 750;
+	canvas.width  = 550;
 	canvas.height = 450;
 }
 
@@ -61,22 +53,7 @@ function domloaded() {
         			// alert('clicked router: ' + element.num);
 
 				selectedRouter = true;
-				GLOB_selectedRouter = element;
-				
-		    // -----------
-		    // This stuff tries to make selection boundary work
-		    // ------------
-			// if(selectedRouter == false) {
-			//	   GLOB_selectedRouter = element;
-        		//		   ctx.fillStyle = 'blue';
-			//		   ctx.fillRect( (GLOB_selectedRouter.X - 5),
-			//		  		  (GLOB_selectedRouter.Y - 5),
-			//		  		  (GLOB_CANVAS_ROUTER_WIDTH + 10),
-			//		  		  (GLOB_CANVAS_ROUTER_HEIGHT + 10) );	
-			//	} else {
-			//		// unselect the stuff
-			//	}
-        			
+				GLOB_selectedRouter = element;			
         		}
    		});
 
@@ -129,9 +106,19 @@ function drawCanvas() {
 		// get the queue length of the individual router
 		var qLength = router.getQueueLength();
 		var packetInc = 0;
-		ctx.fillStyle = 'green';
+		
 		// for every packet in the router
 		for(var i = 0; i < qLength; i++) {
+			// if the packet type is thru, color green
+			//console.log(router.Queue[i].Type)
+			if(router.Queue[i].Type === PACKET_TYPE_THROUGH) {
+				ctx.fillStyle = 'green';
+			// discovery types are colored red
+			} else if(router.Queue[i].Type === PACKET_TYPE_DISCOVERY) {
+				ctx.fillStyle = 'red';
+			} else if(router.Queue[i].Type === PACKET_TYPE_ROUTE_ACK) {
+				ctx.fillStyle = 'blue';
+			}
 			// fill router shape with green squares corresponding to held packets
 			ctx.fillRect( (router.X + GLOB_CANVAS_ROUTER_WIDTH - 5 - packetInc),
 						  (router.Y + GLOB_CANVAS_ROUTER_WIDTH - 5),
@@ -148,13 +135,6 @@ function drawCanvas() {
 		ctx.fillText(element.Id, element.X, element.Y);
 	});	
 }
-
-
-// Every Tick
-
-	// Get all routers
-		// GLOB_topology.getAllRouters()
-			// router.getQueueLength()
 
 // ------------------------------------------
 // -----------Footer Responses---------------
@@ -239,6 +219,9 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 	let from = GLOB_topology.getRouter(f);
 	from.addToQueue(f, t, PACKET_TYPE_THROUGH, "", 10);
 	
+	// redraw
+	drawCanvas();
+	
 	// clear fields
 	document.getElementById('router_from').value = '';
 	document.getElementById('router_to').value = '';
@@ -246,13 +229,18 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 
 
 document.getElementById( "startTickingBtn").addEventListener("click", function(e){
-	GLOB_taskID = setInterval(function(){GLOB_topology.tick()},  3000);
+	GLOB_taskID = setInterval(function(){
+		GLOB_topology.tick();
+		drawCanvas();
+	},  3000);
 	console.log("Starts Ticking");
 });
 
 document.getElementById( "stopTickingBtn").addEventListener("click", function(e){
 	clearInterval(GLOB_taskID);
 	console.log("Stops Ticking");
+	// draw packet queue
+	drawCanvas();
 });
 
 			
