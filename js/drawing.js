@@ -238,7 +238,7 @@ document.getElementById( "startTickingBtn").addEventListener("click", function(e
 	GLOB_taskID = setInterval(function(){
 		GLOB_topology.tick();
 		drawCanvas();
-	},  3000);
+	},  1500);
 	console.log("Starts Ticking");
 });
 
