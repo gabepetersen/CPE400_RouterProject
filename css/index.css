@@ -6,3 +6,8 @@
 table {
   border: 1px solid black;
 }
+
+.stats {
+  float: left;
+  color: #7cfc00;
+}

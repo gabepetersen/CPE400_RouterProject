@@ -301,6 +301,11 @@ class Router {
     // see if the packet was meant for this router
     if (packet.Dest === this.Id) {
       console.log(`A packet meant for Router ${this.Id} arrived at its destination!`);
+
+      // update global stats
+      GLOB_throughPacketLifespans.push(GLOB_tick_time - packet.BornAt);
+      GLOB_updateStats();
+
       return;
     }
 

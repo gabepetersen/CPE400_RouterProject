@@ -13,6 +13,9 @@ class Packet {
     this.MaxHops = maxHops;
     this.HopsLeft = maxHops;
 
+    // record when this packet was created, for logging through packet statistics
+    this.BornAt = GLOB_tick_time;
+
     // set a delay of 1 tick for newly created packets, so they don't move multiple routers in a single tick
     this.Delay = GLOB_tick_time + 1;
   }

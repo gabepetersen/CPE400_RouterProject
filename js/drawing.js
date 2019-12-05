@@ -235,7 +235,13 @@ document.getElementById("sendPacketBtn").addEventListener("click", function(e) {
 	document.getElementById('router_from').value = '';
 	document.getElementById('router_to').value = '';
 
-	alert("Press the 'Start Ticking' button to see packets get sent.");
+	// update global stats
+	GLOB_numThroughPackets += 1;
+	GLOB_updateStats();
+
+	if (GLOB_taskID === -1) {
+		alert("Press the 'Start Ticking' button to see packets get sent.");
+	}
 });
 
 

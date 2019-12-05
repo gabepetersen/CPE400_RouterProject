@@ -17,6 +17,10 @@ var GLOB_tick_time = 0;
 var GLOB_routers_dead = 0;
 var GLOB_taskID = -1;
 
+var GLOB_numThroughPackets = 0;
+var GLOB_averageThroughPacketLifespan = 0;
+var GLOB_throughPacketLifespans = [];
+
 /* drawing constants */
 const GLOB_COLORS = ['#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#696969',
                     '#808080', '#778899', '#708090', '#2F4F4F'];
@@ -37,14 +41,37 @@ const PACKET_TYPE_DISCOVERY = '??';
 // blue
 const PACKET_TYPE_ROUTE_ACK = '!';
 
-// TODO - remove these functions once we have dedicated buttons to perform these tasks
-function tick() {
+// to be used for a single tick, for testing purposes
+function GLOB_tick() {
   GLOB_topology.tick();
-
   drawCanvas();
 }
 
-function kill(routerId) {
+// kills a router, to be used for testing purposes
+function GLOB_kill(routerId) {
   let router = GLOB_topology.getRouter(routerId);
   router.killRouter(3);
+}
+
+function GLOB_updateStats() {
+  // update number of packets sent
+  document.getElementById('statsPacketsSent').innerHTML = `Through Packets Sent: ${GLOB_numThroughPackets}`;
+
+  // don't update other stats unless there is a single packet that has been sent successfully
+  if (GLOB_throughPacketLifespans.length === 0)
+    return;
+
+  let totalLifespans = 0;
+
+  GLOB_throughPacketLifespans.forEach(function(lifespan) {
+    totalLifespans += lifespan;
+  });
+
+  GLOB_averageThroughPacketLifespan = totalLifespans / GLOB_throughPacketLifespans.length;
+
+  // update number of packets completed
+  document.getElementById('statsPacketsCompleted').innerHTML = `Through Packets Completed: ${GLOB_throughPacketLifespans.length}`;
+
+  // update average lifespan of packets successfully sent
+  document.getElementById('statsAverageTime').innerHTML = `Average Time to Find Destination: ${GLOB_averageThroughPacketLifespan}`;
 }
