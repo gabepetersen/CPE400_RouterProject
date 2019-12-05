@@ -1,9 +1,9 @@
-/*
-  initialization.js -- This file defines the things that should be done as soon as the web page initially loads.
+/**
+  * initialization.js -- This file defines the things that should be done as soon as the web page initially loads.
 
-  Some things that need to be done at initialization:
-    - setup the default routers
-    - draw the canvas
+  * Some things that need to be done at initialization:
+  *  - setup the default routers
+  *  - draw the canvas
  */
 
 
@@ -85,8 +85,8 @@ function setupDefaultRouters() {
   GLOB_topology.init();
 }
 
-/*
-  At the time that the page is loaded, all code within this callback will begin executing
+/**
+ * At the time that the page is loaded, all code within this callback will begin executing
  */
 document.addEventListener('DOMContentLoaded', function() {
 

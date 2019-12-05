@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: bin/initialization.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: bin/initialization.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+  * initialization.js -- This file defines the things that should be done as soon as the web page initially loads.
+
+  * Some things that need to be done at initialization:
+  *  - setup the default routers
+  *  - draw the canvas
+ */
+
+
+function setupDefaultRouters() {
+  if (GLOB_topology.hasRouters()) {
+    alert("Attempted to reset the global topology to its default routers. Failing out; default router configuration was not set.");
+    return;
+  }
+
+  // setup the topology completely from scratch
+  GLOB_topology = new Topology();
+
+  GLOB_topology.addRouter(new Router('A', 140, 30));
+  GLOB_topology.addRouter(new Router('B', 72, 90));
+  GLOB_topology.addRouter(new Router('C', 20, 169));
+  GLOB_topology.addRouter(new Router('D', 80, 150));
+  GLOB_topology.addRouter(new Router('E', 152, 163));
+
+  GLOB_topology.addRouter(new Router('F', 210, 39));
+  GLOB_topology.addRouter(new Router('G', 400, 400));
+  GLOB_topology.addRouter(new Router('H', 300, 300));
+  GLOB_topology.addRouter(new Router('I', 205, 113));
+  GLOB_topology.addRouter(new Router('J', 223, 183));
+
+  GLOB_topology.addRouter(new Router('K', 288, 70));
+  GLOB_topology.addRouter(new Router('L', 310, 150));
+  GLOB_topology.addRouter(new Router('M', 360, 40));
+  GLOB_topology.addRouter(new Router('N', 425, 108));
+  GLOB_topology.addRouter(new Router('O', 292, 230));
+
+  GLOB_topology.addRouter(new Router('P', 376, 180));
+  GLOB_topology.addRouter(new Router('Q', 82, 230));
+  GLOB_topology.addRouter(new Router('R', 182, 245));
+  GLOB_topology.addRouter(new Router('S', 20, 279));
+  GLOB_topology.addRouter(new Router('T', 80, 339));
+
+  GLOB_topology.addRouter(new Router('U', 162, 315));
+  GLOB_topology.addRouter(new Router('V', 242, 355));
+  GLOB_topology.addRouter(new Router('W', 380, 313));
+  GLOB_topology.addRouter(new Router('X', 460, 236));
+  GLOB_topology.addRouter(new Router('Y', 480, 339));
+
+  GLOB_topology.addEdge('A','B');
+  GLOB_topology.addEdge('A','F');
+  GLOB_topology.addEdge('B','C');
+  GLOB_topology.addEdge('C','D');
+  GLOB_topology.addEdge('D','E');
+  GLOB_topology.addEdge('E','Q');
+  GLOB_topology.addEdge('Q','S');
+  GLOB_topology.addEdge('Q','U');
+  GLOB_topology.addEdge('S','T');
+  GLOB_topology.addEdge('T','U');
+  GLOB_topology.addEdge('R','U');
+  GLOB_topology.addEdge('U','V');
+  GLOB_topology.addEdge('R','H');
+  GLOB_topology.addEdge('F','K');
+  GLOB_topology.addEdge('I','K');
+  GLOB_topology.addEdge('R','J');
+  GLOB_topology.addEdge('H','V');
+  GLOB_topology.addEdge('I','L');
+  GLOB_topology.addEdge('J','R');
+  GLOB_topology.addEdge('I','J');
+  GLOB_topology.addEdge('J','O');
+  GLOB_topology.addEdge('K','M');
+  GLOB_topology.addEdge('H','W');
+  GLOB_topology.addEdge('V','G');
+  GLOB_topology.addEdge('G','Y');
+  GLOB_topology.addEdge('W','Y');
+  GLOB_topology.addEdge('X','Y');
+  GLOB_topology.addEdge('L','P');
+  GLOB_topology.addEdge('N','X');
+  GLOB_topology.addEdge('L','O');
+  GLOB_topology.addEdge('N','P');
+  GLOB_topology.addEdge('P','W');
+  GLOB_topology.addEdge('C','Q');
+
+
+  // allow routers to discover their neighbors
+  GLOB_topology.init();
+}
+
+/**
+ * At the time that the page is loaded, all code within this callback will begin executing
+ */
+document.addEventListener('DOMContentLoaded', function() {
+
+  console.log("Initializing the page.");
+
+  setupDefaultRouters();
+
+  initializeCanvas();
+  drawCanvas();
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="classes_Packet.js.html">classes/Packet.js</a></li><li><a href="classes_Router.js.html">classes/Router.js</a></li><li><a href="classes_Topology.js.html">classes/Topology.js</a></li><li><a href="Packet.html">Packet</a></li><li><a href="Router.html">Router</a></li><li><a href="Topology.html">Topology</a></li></ul><h3>Global</h3><ul><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#domloaded">domloaded</a></li><li><a href="global.html#drawCanvas">drawCanvas</a></li><li><a href="global.html#GLOB_averageThroughPacketLifespan">GLOB_averageThroughPacketLifespan</a></li><li><a href="global.html#GLOB_CANVAS_ROUTER_HEIGHT">GLOB_CANVAS_ROUTER_HEIGHT</a></li><li><a href="global.html#GLOB_CANVAS_ROUTER_WIDTH">GLOB_CANVAS_ROUTER_WIDTH</a></li><li><a href="global.html#GLOB_COLOR_DEAD">GLOB_COLOR_DEAD</a></li><li><a href="global.html#GLOB_COLORS">GLOB_COLORS</a></li><li><a href="global.html#GLOB_kill">GLOB_kill</a></li><li><a href="global.html#GLOB_numThroughPackets">GLOB_numThroughPackets</a></li><li><a href="global.html#GLOB_routers_dead">GLOB_routers_dead</a></li><li><a href="global.html#GLOB_selectedRouter">GLOB_selectedRouter</a></li><li><a href="global.html#GLOB_sendRandomPackets">GLOB_sendRandomPackets</a></li><li><a href="global.html#GLOB_taskID">GLOB_taskID</a></li><li><a href="global.html#GLOB_throughPacketLifespans">GLOB_throughPacketLifespans</a></li><li><a href="global.html#GLOB_tick">GLOB_tick</a></li><li><a href="global.html#GLOB_tick_time">GLOB_tick_time</a></li><li><a href="global.html#GLOB_topology">GLOB_topology</a></li><li><a href="global.html#GLOB_updateStats">GLOB_updateStats</a></li><li><a href="global.html#initializeCanvas">initializeCanvas</a></li><li><a href="global.html#PACKET_TYPE_DISCOVERY">PACKET_TYPE_DISCOVERY</a></li><li><a href="global.html#PACKET_TYPE_ROUTE_ACK">PACKET_TYPE_ROUTE_ACK</a></li><li><a href="global.html#PACKET_TYPE_THROUGH">PACKET_TYPE_THROUGH</a></li><li><a href="global.html#ROUTER_MAX_PACKET_QUEUE_SIZE">ROUTER_MAX_PACKET_QUEUE_SIZE</a></li><li><a href="global.html#ROUTER_MAX_ROUTING_TABLE_SIZE">ROUTER_MAX_ROUTING_TABLE_SIZE</a></li><li><a href="global.html#ROUTERS_MAX_ALLOWED_DEAD">ROUTERS_MAX_ALLOWED_DEAD</a></li><li><a href="global.html#setupDefaultRouters">setupDefaultRouters</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Dec 04 2019 23:21:18 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

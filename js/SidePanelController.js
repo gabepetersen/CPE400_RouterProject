@@ -1,4 +1,6 @@
-/*
+/**
+ * @file SidePanelController.js
+ *
  * An angular controller. This code allows the side panel to the left of the canvas to dynamically update with
  * the latest information for the currently selected router, if a router IS currently selected.
  *
@@ -12,6 +14,7 @@
  * limitation put on us by our choice to use an HTML5 canvas. This novelty will mostly be lost considering the
  * project's main purpose is to design a routing algorithm.
  */
+
 angular.module('cpeAngularApp', [])
     .controller('SidePanelController', ['$scope', function ($scope) {
 
