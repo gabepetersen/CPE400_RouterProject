@@ -351,7 +351,7 @@ class Router {
 
     // else, see if this router has already received a discovery packet from a particular source
     else if (this.hasRecentDiscovery(packet.Source)) {
-      console.log(`Recently received a discovery packet from ${packet.Source}, so not forwarding more discovery packets from this source.`);
+      // console.log(`Recently received a discovery packet from ${packet.Source}, so not forwarding more discovery packets from this source.`);
     }
 
     else {

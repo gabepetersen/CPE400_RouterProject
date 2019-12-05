@@ -53,6 +53,37 @@ function GLOB_kill(routerId) {
   router.killRouter(3);
 }
 
+function GLOB_sendRandomPackets(numberOfPackets) {
+  let numRouters = GLOB_topology.Graph.length;
+  let midpoint = Math.floor(numRouters / 2);
+  let router1, router2, router1Id, router2Id, from;
+
+  for (let i = 0; i < numberOfPackets; i++) {
+    router1 = Math.floor( Math.random() * midpoint);
+    router2 = Math.floor( Math.random() * midpoint) + midpoint;
+
+    router1Id = GLOB_topology.Graph[router1][0].Id;
+    router2Id = GLOB_topology.Graph[router2][0].Id;
+
+    if (i % 2 === 0) {
+      from = GLOB_topology.getRouter(router1Id);
+      from.addToQueue(router1Id, router2Id, PACKET_TYPE_THROUGH, "", 10);
+    }
+    else {
+      from = GLOB_topology.getRouter(router2Id);
+      from.addToQueue(router2Id, router1Id, PACKET_TYPE_THROUGH, "", 10);
+    }
+  }
+
+  // redraw
+  drawCanvas();
+
+  // update global stats
+  GLOB_numThroughPackets += numberOfPackets;
+  GLOB_updateStats();
+}
+
+
 function GLOB_updateStats() {
   // update number of packets sent
   document.getElementById('statsPacketsSent').innerHTML = `Through Packets Sent: ${GLOB_numThroughPackets}`;

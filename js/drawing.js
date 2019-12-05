@@ -266,4 +266,15 @@ document.getElementById( "stopTickingBtn").addEventListener("click", function(e)
 
 });
 
+document.getElementById( "addRandomsBtn").addEventListener("click", function(e) {
+  let alivePackets = 0;
+  GLOB_sendRandomPackets(5);
+
+  alivePackets = GLOB_numThroughPackets - GLOB_throughPacketLifespans.length;
+
+  // display an alert in case the user goes crazy with creating packets
+  if (alivePackets >= 30) {
+    alert(`Please be aware that the simulation has been known to struggle under large workloads, such as with ${alivePackets}+ through packets alive.`);
+  }
+});
 			
