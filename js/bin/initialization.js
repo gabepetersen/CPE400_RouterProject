@@ -46,13 +46,11 @@ function setupDefaultRouters() {
   GLOB_topology.addRouter(new Router('X', 460, 236));
   GLOB_topology.addRouter(new Router('Y', 480, 339));
 
-  GLOB_topology.addEdge('A', 'B');
-  GLOB_topology.addEdge('A', 'E');
-  GLOB_topology.addEdge('A', 'F');
-  GLOB_topology.addEdge('B', 'C');
-  GLOB_topology.addEdge('C', 'D');
-  GLOB_topology.addEdge('D', 'E');
-  GLOB_topology.addEdge('D', 'B');
+  GLOB_topology.addEdge('A','B');
+  GLOB_topology.addEdge('A','F');
+  GLOB_topology.addEdge('B','C');
+  GLOB_topology.addEdge('C','D');
+  GLOB_topology.addEdge('D','E');
   GLOB_topology.addEdge('E','Q');
   GLOB_topology.addEdge('Q','S');
   GLOB_topology.addEdge('Q','U');

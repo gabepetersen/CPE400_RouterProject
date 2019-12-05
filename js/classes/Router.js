@@ -12,6 +12,7 @@ class Router {
     this.DeadUntil = null;
     this.RoutingTable = [];
     this.Queue = [];
+    this.RecentDiscoveries = [];
     this.X = x;
     this.Y = y;
   }
@@ -78,6 +79,10 @@ class Router {
       nextHop: nextHop,
       ttl: ttl
     });
+  }
+
+  logRecentDiscovery(routerId) {
+    // TODO - will implement
   }
 
   getNextHop(destinationRouterId) {
@@ -218,6 +223,10 @@ class Router {
         this.RoutingTable[i].ttl = this.RoutingTable[i].ttl / 2;
       }
     }
+  }
+
+  decayRecentDiscoveries() {
+    // TODO - will implement
   }
 
   processNextPacket() {
@@ -433,6 +442,7 @@ class Router {
     // check if router is alive (may have started off dead, but is alive now)
     if (this.Alive) {
       this.cleanTheRouterTable();
+      this.decayRecentDiscoveries();
       this.processNextPacket();
     }
   }
