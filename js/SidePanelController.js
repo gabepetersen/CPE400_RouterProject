@@ -1,3 +1,8 @@
+/**
+ * @file SidePanelController.js
+ * 
+ */
+
 angular.module('cpeAngularApp', [])
     .controller('SidePanelController', ['$scope', function ($scope) {
 

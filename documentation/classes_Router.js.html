@@ -1,5 +1,32 @@
-/**
- * @file Router.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: classes/Router.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: classes/Router.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * A data structure representing one single router.
  * @class 
  */
@@ -41,7 +68,7 @@ class Router {
       /** remove whole number component from floating number */
       failChance -= Math.floor(failChance);
     }
-    else if (failChance <= 0.0) {
+    else if (failChance &lt;= 0.0) {
       /** don't save a fail chance of less than 0 */
       return;
     }
@@ -57,7 +84,7 @@ class Router {
     let ticksDead = Math.floor(Math.random() * 3) + 3;
     let roll = Math.floor(Math.random() * 100) + 1;
 
-    if (roll <= deadCutoff)
+    if (roll &lt;= deadCutoff)
       this.killRouter(ticksDead);
   }
   /**
@@ -78,7 +105,7 @@ class Router {
    */
   addRoute(routerId, nextHop, ttl) {
     /** check if the routing table already has a route for this routerId */
-    for (let i = 0; i < this.RoutingTable.length; i++) {
+    for (let i = 0; i &lt; this.RoutingTable.length; i++) {
       if (this.RoutingTable[i].routerId === routerId) {
         this.RoutingTable[i].nextHop = nextHop;
         this.RoutingTable[i].ttl = ttl;
@@ -91,8 +118,8 @@ class Router {
       let shortest = this.RoutingTable[0].ttl;
       let index = 0;
 
-      for (let i = 0; i < this.RoutingTable.length; i++) {
-        if (this.RoutingTable[i].ttl < shortest) {
+      for (let i = 0; i &lt; this.RoutingTable.length; i++) {
+        if (this.RoutingTable[i].ttl &lt; shortest) {
           shortest = this.RoutingTable[i].ttl;
           index = i;
         }
@@ -127,7 +154,7 @@ class Router {
   hasRecentDiscovery(routerId) {
     let hasDiscovery = false;
 
-    for (let i = 0; i < this.RecentDiscoveries.length; i++) {
+    for (let i = 0; i &lt; this.RecentDiscoveries.length; i++) {
       if (this.RecentDiscoveries[i].routerId === routerId) {
         hasDiscovery = true;
         break;
@@ -142,7 +169,7 @@ class Router {
    * @param deestinationRouterId 
    */
   getNextHop(destinationRouterId) {
-    for (let i = 0; i < this.RoutingTable.length; i++) {
+    for (let i = 0; i &lt; this.RoutingTable.length; i++) {
       if (this.RoutingTable[i].routerId === destinationRouterId) {
         return this.RoutingTable[i].nextHop;
       }
@@ -168,7 +195,7 @@ class Router {
     let i = 0;
     let foundIt = false;
 
-    for (i; i < this.RoutingTable.length; i++) {
+    for (i; i &lt; this.RoutingTable.length; i++) {
       if (this.RoutingTable[i].routerId === routerId) {
         foundIt = true;
         break;
@@ -293,7 +320,7 @@ class Router {
   cleanTheRouterTable() {
     let entriesToRemove = [];
 
-    for (let i = 0; i < this.RoutingTable.length; i++) {
+    for (let i = 0; i &lt; this.RoutingTable.length; i++) {
       // these entries seem to be bugged, so just don't decrement them
       if (this.RoutingTable[i].routerId === this.RoutingTable[i].nextHop) {
         // do nothing
@@ -303,11 +330,11 @@ class Router {
       }
 
       // remove any entry whose ttl has now 'expired'
-      if (this.RoutingTable[i].ttl <= 0)
+      if (this.RoutingTable[i].ttl &lt;= 0)
         entriesToRemove.unshift(i);
     }
 
-    for (let i = 0; i < entriesToRemove.length; i++) {
+    for (let i = 0; i &lt; entriesToRemove.length; i++) {
       this.RoutingTable.splice(entriesToRemove[i], 1);
     }
   }
@@ -320,7 +347,7 @@ class Router {
     // this method to be called for the purpose of reacting to a router that failed to receive a packet
     // --> this means the router was either dead or under a high load
 
-    for (let i = 0; i < this.RoutingTable.length; i++) {
+    for (let i = 0; i &lt; this.RoutingTable.length; i++) {
       if (this.RoutingTable[i].nextHop === destinationId) {
         this.RoutingTable[i].ttl = this.RoutingTable[i].ttl / 2;
       }
@@ -335,7 +362,7 @@ class Router {
       return;
 
     for(let i = this.RecentDiscoveries.length - 1; i >= 0; i--) {
-      if (this.RecentDiscoveries[i].ttl <= 0) {
+      if (this.RecentDiscoveries[i].ttl &lt;= 0) {
         this.RecentDiscoveries.splice(i, 1);
       }
       else {
@@ -354,7 +381,7 @@ class Router {
     if (packet === null)
       return;
 
-    if (packet.isDelayed(GLOB_tick_time) && packet.hasHopsLeft()) {
+    if (packet.isDelayed(GLOB_tick_time) &amp;&amp; packet.hasHopsLeft()) {
       // only re-enqueue the packet to the queue if it has hops left
       this.addPacketToQueue(packet);
     }
@@ -464,7 +491,7 @@ class Router {
 
       // get the list of neighbors who haven't seen this discovery packet yet, or identify if the Dest is among
       // this router's neighbors
-      for (let i = 0; i < adjacentRouters.length; i++) {
+      for (let i = 0; i &lt; adjacentRouters.length; i++) {
         if (adjacentRouters[i].Id === packet.Dest) {
           destIsAdjacent = true;
           break;
@@ -573,7 +600,7 @@ class Router {
       });
     }
 
-    for (let i = 0; i < broadcastList.length; i++) {
+    for (let i = 0; i &lt; broadcastList.length; i++) {
       this.sendPacket(packet, broadcastList[i]);
     }
   }
@@ -583,12 +610,12 @@ class Router {
    */
   tick() {
     // check if router is dead
-    if (this.Alive === false && GLOB_tick_time >= this.DeadUntil) {
+    if (this.Alive === false &amp;&amp; GLOB_tick_time >= this.DeadUntil) {
       GLOB_routers_dead--;
       this.Alive = true;
     }
     // if the router was alive, give it a chance to fail ("die")
-    else if (this.Alive === true && GLOB_routers_dead < ROUTERS_MAX_ALLOWED_DEAD) {
+    else if (this.Alive === true &amp;&amp; GLOB_routers_dead &lt; ROUTERS_MAX_ALLOWED_DEAD) {
         this.rollForDeath();
     }
 
@@ -607,9 +634,31 @@ class Router {
     let adjRouters = GLOB_topology.getAdjacentRouters(this.Id);
 
     // on init, get all adjacent routers, and create connections to them in the routingTable with a ttl of 999
-    for (let i = 0; i < adjRouters.length; i++) {
+    for (let i = 0; i &lt; adjRouters.length; i++) {
       this.addRoute(adjRouters[i].Id, adjRouters[i].Id, 999);
     }
   }
 
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Packet.html">Packet</a></li><li><a href="Router.html">Router</a></li><li><a href="Topology.html">Topology</a></li></ul><h3>Global</h3><ul><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#domloaded">domloaded</a></li><li><a href="global.html#drawCanvas">drawCanvas</a></li><li><a href="global.html#GLOB_COLORS">GLOB_COLORS</a></li><li><a href="global.html#GLOB_kill">GLOB_kill</a></li><li><a href="global.html#GLOB_tick">GLOB_tick</a></li><li><a href="global.html#initializeCanvas">initializeCanvas</a></li><li><a href="global.html#ROUTER_MAX_ROUTING_TABLE_SIZE">ROUTER_MAX_ROUTING_TABLE_SIZE</a></li><li><a href="global.html#setupDefaultRouters">setupDefaultRouters</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Dec 04 2019 23:11:37 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
