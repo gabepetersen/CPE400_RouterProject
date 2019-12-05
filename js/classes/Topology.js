@@ -42,7 +42,14 @@ class Topology {
   }
 
   removeEdge(fromRouterId, toRouterId) {
-    return this.__setEdge(fromRouterId, toRouterId, 0);
+    let didRemoveEdge = this.__setEdge(fromRouterId, toRouterId, 0);
+
+    if (didRemoveEdge) {
+      this.getRouter(fromRouterId).removeRoute(toRouterId);
+      this.getRouter(toRouterId).removeRoute(fromRouterId);
+    }
+
+    return didRemoveEdge;
   }
 
   /* private function: sets a given edge to either 0 or 1 */
@@ -67,7 +74,7 @@ class Topology {
     }
 
     // fail out of setting edges if the provided router IDs couldn't be found
-    if (fromRouterRowNum === -1 && toRouterRowNum === -1)
+    if (fromRouterRowNum === -1 || toRouterRowNum === -1)
       return false;
 
     this.Graph[fromRouterRowNum][1 + toRouterRowNum] = value;

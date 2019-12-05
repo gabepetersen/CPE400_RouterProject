@@ -99,7 +99,7 @@ class Router {
     let foundIt = false;
 
     for (i; i < this.RoutingTable.length; i++) {
-      if (this.RoutingTable[i].id === routerId) {
+      if (this.RoutingTable[i].routerId === routerId) {
         foundIt = true;
         break;
       }
@@ -340,7 +340,7 @@ class Router {
     console.log(`Router ${this.Id} Processing a route ack packet`);
 
     let thisRouterId = this.Id;
-    let newRouteTTL = 30;
+    let newRouteTTL = 200;
     let index = packet.Payload.indexOf(this.Id);
     let source = packet.Payload[0];
     let dest = packet.Payload[packet.Payload.length - 1];

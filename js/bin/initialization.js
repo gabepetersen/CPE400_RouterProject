@@ -53,7 +53,6 @@ function setupDefaultRouters() {
   GLOB_topology.addEdge('C', 'D');
   GLOB_topology.addEdge('D', 'E');
   GLOB_topology.addEdge('D', 'B');
-  GLOB_topology.addEdge('A','I');
   GLOB_topology.addEdge('E','Q');
   GLOB_topology.addEdge('Q','S');
   GLOB_topology.addEdge('Q','U');
