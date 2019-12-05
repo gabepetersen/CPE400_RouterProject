@@ -82,7 +82,23 @@ class Router {
   }
 
   logRecentDiscovery(routerId) {
-    // TODO - will implement
+    this.RecentDiscoveries.push({
+      routerId: routerId,
+      ttl: 40
+    })
+  }
+
+  hasRecentDiscovery(routerId) {
+    let hasDiscovery = false;
+
+    for (let i = 0; i < this.RecentDiscoveries.length; i++) {
+      if (this.RecentDiscoveries[i].routerId === routerId) {
+        hasDiscovery = true;
+        break;
+      }
+    }
+
+    return hasDiscovery;
   }
 
   getNextHop(destinationRouterId) {
@@ -226,7 +242,17 @@ class Router {
   }
 
   decayRecentDiscoveries() {
-    // TODO - will implement
+    if (this.RecentDiscoveries.length === 0)
+      return;
+
+    for(let i = this.RecentDiscoveries.length - 1; i >= 0; i--) {
+      if (this.RecentDiscoveries[i].ttl <= 0) {
+        this.RecentDiscoveries.splice(i, 1);
+      }
+      else {
+        this.RecentDiscoveries[i].ttl -= 1;
+      }
+    }
   }
 
   processNextPacket() {
@@ -265,7 +291,7 @@ class Router {
   }
 
   __processThroughPacket(packet) {
-    console.log(`Router ${this.Id} Processing a through packet`);
+    // console.log(`Router ${this.Id} Processing a through packet`);
 
     let nextHop = this.getNextHop(packet.Dest);
     let discoveryPacket = null;
@@ -293,7 +319,7 @@ class Router {
   }
 
   __processDiscoveryPacket(packet) {
-    console.log(`Router ${this.Id} Processing a discovery packet`);
+    // console.log(`Router ${this.Id} Processing a discovery packet`);
 
     let previousHop = packet.Payload[packet.Payload.length - 1];
     let tempData = null;
@@ -318,10 +344,18 @@ class Router {
       this.sendPacket(routeAckPacket, previousHop);
     }
 
+    // else, see if this router has already received a discovery packet from a particular source
+    else if (this.hasRecentDiscovery(packet.Source)) {
+      console.log(`Recently received a discovery packet from ${packet.Source}, so not forwarding more discovery packets from this source.`);
+    }
+
     else {
-    		if(this.Id !== packet.Payload[packet.Payload.length - 1])
+      if (this.Id !== packet.Payload[packet.Payload.length - 1])
      		packet.Payload += this.Id;
-	  
+
+      // log that a discovery packet from this source has now been seen recently
+      this.logRecentDiscovery(packet.Source);
+
       adjacentRouters = GLOB_topology.getAdjacentRouters(this.Id);
 
       // get the list of neighbors who haven't seen this discovery packet yet, or identify if the Dest is among
@@ -346,7 +380,7 @@ class Router {
   }
 
   __processRouteAckPacket(packet) {
-    console.log(`Router ${this.Id} Processing a route ack packet`);
+    // console.log(`Router ${this.Id} Processing a route ack packet`);
 
     let thisRouterId = this.Id;
     let newRouteTTL = 200;
@@ -392,7 +426,7 @@ class Router {
       console.log(`Router ${this.Id} is dropping a packet; no hops left`);
       return;
     } else {
-      console.log(`Router ${this.Id} is sending a packet to Router ${nextHop}`);
+      // console.log(`Router ${this.Id} is sending a packet to Router ${nextHop}`);
     }
 
     let clone = Object.assign( Object.create( Object.getPrototypeOf(packet)), packet);
