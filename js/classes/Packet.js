@@ -34,7 +34,6 @@ class Packet {
   }
 
   resetDelay() {
-    // TODO - delete this method if it doesn't end up being used
     this.Delay = -1;
   }
 
