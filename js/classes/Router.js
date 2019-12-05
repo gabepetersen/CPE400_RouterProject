@@ -330,7 +330,7 @@ class Router {
     let tempData = null;
     let data = '';
     let routeAckPacket = null;
-    let routeAckMaxHops = 7;
+    let routeAckMaxHops = 10;
     let destIsAdjacent = false;
     let broadcastList = [];
     let adjacentRouters = null;

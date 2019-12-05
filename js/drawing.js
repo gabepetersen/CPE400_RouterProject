@@ -268,7 +268,7 @@ document.getElementById( "stopTickingBtn").addEventListener("click", function(e)
 
 document.getElementById( "addRandomsBtn").addEventListener("click", function(e) {
   let alivePackets = 0;
-  GLOB_sendRandomPackets(5);
+  GLOB_sendRandomPackets(3);
 
   alivePackets = GLOB_numThroughPackets - GLOB_throughPacketLifespans.length;
 
